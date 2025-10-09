@@ -52,6 +52,7 @@ export function Navbar() {
             alt="ConsultingUZ logo"
             width={32}
             height={32}
+            unoptimized
             priority
             className="dark:hidden"
           />
@@ -60,6 +61,7 @@ export function Navbar() {
             alt="ConsultingUZ logo"
             width={32}
             height={32}
+            unoptimized
             priority
             className="hidden dark:inline"
           />

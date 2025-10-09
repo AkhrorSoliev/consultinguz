@@ -1,4 +1,5 @@
 import ComingSoon from "@/components/ComingSoon";
+// update this page
 
 export const metadata = {
   title: "Karyera",

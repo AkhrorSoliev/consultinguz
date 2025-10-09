@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 // Use plain img to avoid remote config issues in production
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { testimonials as baseTestimonials } from "@/data";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
@@ -33,7 +33,7 @@ export default function Testimonials() {
   const effectiveTargetIdx = targetIdx ?? (idx + 1) % total;
   const current = testimonials[idx];
   const target = testimonials[effectiveTargetIdx];
-  function prev() {
+  const prev = useCallback(() => {
     if (isAnimating) return;
     const to = (idx - 1 + total) % total;
     setDirection("prev");
@@ -49,8 +49,8 @@ export default function Testimonials() {
       setTargetIdx(null);
       setSlideStarted(false);
     }, 500);
-  }
-  function next() {
+  }, [isAnimating, idx, total]);
+  const next = useCallback(() => {
     if (isAnimating) return;
     const to = (idx + 1) % total;
     setDirection("next");
@@ -66,25 +66,28 @@ export default function Testimonials() {
       setTargetIdx(null);
       setSlideStarted(false);
     }, 500);
-  }
+  }, [isAnimating, idx, total]);
 
-  function goTo(target: number) {
-    if (target === idx || isAnimating) return;
-    const isNext = (target - idx + total) % total <= (idx - target + total) % total;
-    setDirection(isNext ? "next" : "prev");
-    setTargetIdx(target);
-    setIsAnimating(true);
-    // Trigger transform transition on mobile in the next frames
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setSlideStarted(true));
-    });
-    setTimeout(() => {
-      setIdx(target);
-      setIsAnimating(false);
-      setTargetIdx(null);
-      setSlideStarted(false);
-    }, 500);
-  }
+  const goTo = useCallback(
+    (target: number) => {
+      if (target === idx || isAnimating) return;
+      const isNext = (target - idx + total) % total <= (idx - target + total) % total;
+      setDirection(isNext ? "next" : "prev");
+      setTargetIdx(target);
+      setIsAnimating(true);
+      // Trigger transform transition on mobile in the next frames
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setSlideStarted(true));
+      });
+      setTimeout(() => {
+        setIdx(target);
+        setIsAnimating(false);
+        setTargetIdx(null);
+        setSlideStarted(false);
+      }, 500);
+    },
+    [idx, isAnimating, total]
+  );
 
   // Auto-advance with pause on hover/focus
   useEffect(() => {
@@ -93,7 +96,7 @@ export default function Testimonials() {
       next();
     }, 5000);
     return () => clearInterval(id);
-  }, [isPaused, idx, total, next]);
+  }, [isPaused, next]);
 
   return (
     <section

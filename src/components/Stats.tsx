@@ -53,6 +53,21 @@ export default function Stats() {
 
   const icons = [Award, Users, BriefcaseBusiness, ThumbsUp] as const;
 
+  // Map literal labels from data to translated strings without a default branch,
+  // so TypeScript doesn't narrow to never after exhaustiveness.
+  const translateLabel = (lbl: (typeof stats)[number]["label"]): string => {
+    switch (lbl) {
+      case "Tajriba yillari":
+        return t("stat_years");
+      case "Hamkorlar":
+        return t("stat_partners");
+      case "Joylashtirilganlar":
+        return t("stat_placed");
+      case "Qoniqish darajasi":
+        return t("stat_satisfaction");
+    }
+  };
+
   return (
     <section ref={sectionRef} className="relative py-12 border-y overflow-hidden">
       <div
@@ -74,17 +89,7 @@ export default function Stats() {
               key={s.label}
               value={s.value}
               suffix={"suffix" in s ? s.suffix : undefined}
-              label={
-                s.label === "Tajriba yillari"
-                  ? t("stat_years")
-                  : s.label === "Hamkorlar"
-                    ? t("stat_partners")
-                    : s.label === "Joylashtirilganlar"
-                      ? t("stat_placed")
-                      : s.label === "Qoniqish darajasi"
-                        ? t("stat_satisfaction")
-                        : s.label
-              }
+              label={translateLabel(s.label)}
               icon={icons[i % icons.length]}
               isInView={isInView}
             />

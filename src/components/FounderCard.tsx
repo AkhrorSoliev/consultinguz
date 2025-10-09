@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 // Use plain img tag to ensure reliable rendering in production
 import { Quote } from "lucide-react";

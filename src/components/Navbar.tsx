@@ -279,7 +279,7 @@ function LanguageToggle({
       window.localStorage.getItem("lang")) as LanguageCode | null;
     const initial: LanguageCode = stored === "uz" || stored === "de" ? stored : "uz";
     setLanguage(forcedLang ?? initial);
-  }, []);
+  }, [forcedLang]);
 
   const handleChange = (value: LanguageCode) => {
     setLanguage(value);

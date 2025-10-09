@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import AboutBrief from "@/components/AboutBrief";
 import Stats from "@/components/Stats";
 import FounderCard from "@/components/FounderCard";
 import Segments from "@/components/Segments";

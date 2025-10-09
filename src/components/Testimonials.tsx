@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 // Use plain img to avoid remote config issues in production
 import { useEffect, useMemo, useState } from "react";
@@ -92,7 +93,7 @@ export default function Testimonials() {
       next();
     }, 5000);
     return () => clearInterval(id);
-  }, [isPaused, idx, total]);
+  }, [isPaused, idx, total, next]);
 
   return (
     <section

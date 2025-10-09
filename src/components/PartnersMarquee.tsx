@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { partners } from "@/data";
 import { useEffect, useRef } from "react";

@@ -247,10 +247,10 @@ function ThemeToggle() {
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={theme} onValueChange={(v) => handleChange(v as ThemeChoice)}>
           <DropdownMenuRadioItem value="light">
-            <Sun className="size-4" /> Yorug'
+            <Sun className="size-4" /> Yorug&apos;
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="dark">
-            <Moon className="size-4" /> Qorong'i
+            <Moon className="size-4" /> Qorong&apos;i
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="system">
             <Laptop className="size-4" /> Tizim

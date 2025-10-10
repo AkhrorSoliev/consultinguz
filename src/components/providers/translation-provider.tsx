@@ -60,6 +60,10 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     testimonials_title: "Mijozlar fikri",
     partners_title: "Ishonchli hamkorlar",
 
+    // Results
+    results_title: "Natijalar",
+    results_desc: "Biz orqali ishga joylashgan mutaxassislarimizdan namunalar.",
+
     // Footer / CTA
     footer_tagline:
       "Biz ish beruvchilarni malakali mutaxassislar bilan bog'laymiz — shaffof, tez va ishonchli.",
@@ -92,6 +96,9 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     testimonial_1_text: "Tez va shaffof yollash jarayoni.",
     testimonial_2_text: "A'lo darajadagi viza va ko'chish yordami.",
     testimonial_3_text: "Professional muloqot va natijalar.",
+    testimonial_4_text: "Jarayon juda tushunarli va qulay bo'ldi.",
+    testimonial_5_text: "Nomzodlar sifati kutilganidan yuqori edi.",
+    testimonial_6_text: "Hujjatlar bo'yicha to'liq ko'mak oldim.",
     // Candidate listing extras
     job_verified: "Tasdiqlangan ishlar",
     job_verified_desc: "Ishonchli hamkorlar bilan tekshirilgan bo'sh ish o'rinlari.",
@@ -173,6 +180,10 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     testimonials_title: "Kundenstimmen",
     partners_title: "Vertrauensvolle Partner",
 
+    // Results
+    results_title: "Ergebnisse",
+    results_desc: "Beispiele unserer vermittelten Fachkräfte.",
+
     // Footer / CTA
     footer_tagline:
       "Wir verbinden Arbeitgeber mit qualifizierten Fachkräften – transparent, schnell und zuverlässig.",
@@ -206,6 +217,9 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     testimonial_1_text: "Schneller und transparenter Einstellungsprozess.",
     testimonial_2_text: "Hervorragende Unterstützung bei Visum und Umzug.",
     testimonial_3_text: "Professionelle Kommunikation und Ergebnisse.",
+    testimonial_4_text: "Der Prozess war sehr verständlich und komfortabel.",
+    testimonial_5_text: "Die Qualität der Kandidaten übertraf die Erwartungen.",
+    testimonial_6_text: "Ich habe vollständige Unterstützung bei den Unterlagen erhalten.",
     // Candidate listing extras
     job_verified: "Geprüfte Jobs",
     job_verified_desc: "Von vertrauenswürdigen Partnern verifizierte Stellenangebote.",

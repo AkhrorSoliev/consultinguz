@@ -2,6 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useI18n } from "@/components/providers/translation-provider";
+import { ParticleCard, GlobalSpotlight } from "@/components/MagicBento";
+import { useRef } from "react";
 
 const items = (t: (k: string) => string) => [
   {
@@ -20,19 +22,30 @@ const items = (t: (k: string) => string) => [
 
 export default function ForEmployers() {
   const { t } = useI18n();
+  const gridRef = useRef<HTMLDivElement>(null);
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h2 className="text-2xl font-semibold mb-6">{t("emp_title")}</h2>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <GlobalSpotlight gridRef={gridRef} spotlightRadius={300} />
+      <div ref={gridRef} className="bento-section grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {items(t).map((it) => (
-          <Card key={it.title} className="rounded-2xl shadow-lg">
-            <CardHeader>
-              <CardTitle>{it.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{it.desc}</p>
-            </CardContent>
-          </Card>
+          <ParticleCard
+            key={it.title}
+            className="card card--border-glow rounded-2xl shadow-lg"
+            glowColor="132, 0, 255"
+            enableTilt
+            enableMagnetism
+            clickEffect
+          >
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle>{it.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">{it.desc}</p>
+              </CardContent>
+            </Card>
+          </ParticleCard>
         ))}
       </div>
     </section>

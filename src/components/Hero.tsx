@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Briefcase, Users } from "lucide-react";
@@ -11,6 +12,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden h-[100svh] -mt-16 flex items-center justify-center">
       {/* Background image + subtle overlay */}
+
       <div className="absolute inset-0 -z-10">
         <div
           aria-hidden

@@ -1,9 +1,9 @@
 import ComingSoon from "@/components/ComingSoon";
 
 export const metadata = {
-  title: "Hamkorlar",
+  title: "Partner",
 };
 
 export default function Page() {
-  return <ComingSoon pageName="Hamkorlar" />;
+  return <ComingSoon pageKey="nav_partners" />;
 }

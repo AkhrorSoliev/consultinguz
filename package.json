@@ -24,9 +24,9 @@
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.545.0",
     "next": "15.5.4",
-    "react-slick": "^0.30.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^3.3.1"
   },

@@ -1,5 +1,5 @@
 "use client";
-
+// https://github.com/zloirock/react-use/blob/master/src/useReveal.ts
 import { useEffect, useRef, useState, useCallback } from "react";
 
 export function useReveal<E extends HTMLElement = HTMLDivElement>(

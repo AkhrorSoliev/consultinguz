@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 // Use plain img to avoid remote config issues in production
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { testimonials as baseTestimonials } from "@/data";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
@@ -15,88 +15,91 @@ export default function Testimonials() {
       const roleKey =
         it.role === "Ish beruvchi" ? "testimonial_role_employer" : "testimonial_role_jobseekers";
       const textKey = `testimonial_${i + 1}_text`;
+      const localizedText = t(textKey);
       return {
         ...it,
         role: t(roleKey),
-        text: t(textKey),
+        text: localizedText === textKey ? it.text : localizedText,
       };
     });
   }, [t]);
-  const [idx, setIdx] = useState(0);
+
+  // Responsive settings
+  const [slidesToShow, setSlidesToShow] = useState(3);
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      if (w <= 480) {
+        setSlidesToShow(1);
+      } else if (w <= 768) {
+        setSlidesToShow(2);
+      } else if (w <= 1024) {
+        setSlidesToShow(3);
+      } else {
+        // default
+        setSlidesToShow(4);
+      }
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
+  // Infinite one-by-one sliding track
   const total = testimonials.length;
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [direction, setDirection] = useState<"next" | "prev">("next");
+  const ANIMATION_MS = 500;
+  const track = useMemo(() => [...testimonials, ...testimonials, ...testimonials], [testimonials]);
+  const [index, setIndex] = useState(total); // start at middle copy
+  const [disableTransition, setDisableTransition] = useState(false);
+
+  // Seamless loop correction after animation completes
+  useEffect(() => {
+    if (index >= total * 2) {
+      const id = setTimeout(() => {
+        setDisableTransition(true);
+        setIndex((i) => i - total);
+        requestAnimationFrame(() => setDisableTransition(false));
+      }, ANIMATION_MS);
+      return () => clearTimeout(id);
+    }
+    if (index < total) {
+      const id = setTimeout(() => {
+        setDisableTransition(true);
+        setIndex((i) => i + total);
+        requestAnimationFrame(() => setDisableTransition(false));
+      }, ANIMATION_MS);
+      return () => clearTimeout(id);
+    }
+  }, [index, total]);
+
+  // Reset to center when data length changes
+  useEffect(() => {
+    setDisableTransition(true);
+    setIndex(total);
+    requestAnimationFrame(() => setDisableTransition(false));
+  }, [total]);
+
+  const cardWidthPercent = 100 / slidesToShow;
+  const transform = `translateX(-${index * cardWidthPercent}%)`;
+
+  const prev = () => setIndex((i) => i - 1);
+  const next = () => setIndex((i) => i + 1);
+
+  // Auto-advance with pause on hover/focus (step by 1)
   const [isPaused, setIsPaused] = useState(false);
-  const [targetIdx, setTargetIdx] = useState<number | null>(null);
-  const [slideStarted, setSlideStarted] = useState(false);
-
-  const effectiveTargetIdx = targetIdx ?? (idx + 1) % total;
-  const current = testimonials[idx];
-  const target = testimonials[effectiveTargetIdx];
-  const prev = useCallback(() => {
-    if (isAnimating) return;
-    const to = (idx - 1 + total) % total;
-    setDirection("prev");
-    setTargetIdx(to);
-    setIsAnimating(true);
-    // Trigger transform transition on mobile in the next frames
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setSlideStarted(true));
-    });
-    setTimeout(() => {
-      setIdx(to);
-      setIsAnimating(false);
-      setTargetIdx(null);
-      setSlideStarted(false);
-    }, 500);
-  }, [isAnimating, idx, total]);
-  const next = useCallback(() => {
-    if (isAnimating) return;
-    const to = (idx + 1) % total;
-    setDirection("next");
-    setTargetIdx(to);
-    setIsAnimating(true);
-    // Trigger transform transition on mobile in the next frames
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setSlideStarted(true));
-    });
-    setTimeout(() => {
-      setIdx(to);
-      setIsAnimating(false);
-      setTargetIdx(null);
-      setSlideStarted(false);
-    }, 500);
-  }, [isAnimating, idx, total]);
-
-  const goTo = useCallback(
-    (target: number) => {
-      if (target === idx || isAnimating) return;
-      const isNext = (target - idx + total) % total <= (idx - target + total) % total;
-      setDirection(isNext ? "next" : "prev");
-      setTargetIdx(target);
-      setIsAnimating(true);
-      // Trigger transform transition on mobile in the next frames
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setSlideStarted(true));
-      });
-      setTimeout(() => {
-        setIdx(target);
-        setIsAnimating(false);
-        setTargetIdx(null);
-        setSlideStarted(false);
-      }, 500);
-    },
-    [idx, isAnimating, total]
-  );
-
-  // Auto-advance with pause on hover/focus
   useEffect(() => {
     if (isPaused) return;
     const id = setInterval(() => {
-      next();
+      setIndex((i) => i + 1);
     }, 5000);
     return () => clearInterval(id);
-  }, [isPaused, next]);
+  }, [isPaused]);
+
+  // Dots derived from current starting position within one cycle
+  const lastStart = Math.max(0, total - slidesToShow);
+  const normalizedStart = (((index - total) % total) + total) % total;
+  const currentStart = Math.min(normalizedStart, lastStart);
+  const pageCount = lastStart + 1;
 
   return (
     <section
@@ -125,178 +128,48 @@ export default function Testimonials() {
           </button>
         </div>
       </div>
-      {/* Mobile: single item with left slide */}
-      <div className="overflow-hidden sm:hidden">
-        {!isAnimating && (
-          <figure className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative">
-            <Quote className="absolute top-4 left-4 text-primary/30" />
-            <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
-              “{current.text}”
-            </blockquote>
-            <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-              <img
-                src={`https://picsum.photos/seed/face-${current.name}-${idx}/64/64`}
-                alt={current.name}
-                width={40}
-                height={40}
-                className="rounded-full h-10 w-10 object-cover"
-                loading="lazy"
-                referrerPolicy="no-referrer"
-              />
-              <div>
-                <div className="font-medium text-foreground">{current.name}</div>
-                <div>{current.role}</div>
-              </div>
-            </figcaption>
-          </figure>
-        )}
-
-        {isAnimating && (
-          <div
-            className={`flex transition-transform duration-500 ease-out ${slideStarted ? "-translate-x-full" : "translate-x-0"}`}
-          >
-            <figure className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative shrink-0 basis-full">
-              <Quote className="absolute top-4 left-4 text-primary/30" />
-              <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
-                “{current.text}”
-              </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-                <img
-                  src={`https://picsum.photos/seed/face-${current.name}-${idx}/64/64`}
-                  alt={current.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full h-10 w-10 object-cover"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-                <div>
-                  <div className="font-medium text-foreground">{current.name}</div>
-                  <div>{current.role}</div>
-                </div>
-              </figcaption>
-            </figure>
-            <figure className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative shrink-0 basis-full">
-              <Quote className="absolute top-4 left-4 text-primary/30" />
-              <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
-                “{target.text}”
-              </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-                <img
-                  src={`https://picsum.photos/seed/face-${target.name}-${effectiveTargetIdx}/64/64`}
-                  alt={target.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full h-10 w-10 object-cover"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-                <div>
-                  <div className="font-medium text-foreground">{target.name}</div>
-                  <div>{target.role}</div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
-        )}
-      </div>
-
-      {/* Tablet/Desktop: 3 items view with one-by-one slide */}
-      <div className="hidden sm:block">
-        {/* Static view when not animating */}
-        {!isAnimating && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {testimonials
-              .slice(idx)
-              .concat(testimonials.slice(0, idx))
-              .slice(0, 3)
-              .map((t, i) => (
-                <figure
-                  key={t.name + i}
-                  className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative"
-                >
-                  <Quote className="absolute top-4 left-4 text-primary/30" />
-                  <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
-                    “{t.text}”
-                  </blockquote>
-                  <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-                    <img
-                      src={`https://picsum.photos/seed/face-${t.name}-${i}/64/64`}
-                      alt={t.name}
-                      width={40}
-                      height={40}
-                      className="rounded-full h-10 w-10 object-cover"
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div>
-                      <div className="font-medium text-foreground">{t.name}</div>
-                      <div>{t.role}</div>
-                    </div>
-                  </figcaption>
-                </figure>
-              ))}
-          </div>
-        )}
-        {/* Animated sliding track when transitioning */}
-        {isAnimating && (
-          <div className="relative overflow-hidden">
-            <div
-              className={`flex gap-6 transition-transform duration-500 ease-out ${
-                direction === "next"
-                  ? slideStarted
-                    ? "-translate-x-[calc((100%-48px)/3+24px)]"
-                    : "translate-x-0"
-                  : slideStarted
-                    ? "translate-x-0"
-                    : "-translate-x-[calc((100%-48px)/3+24px)]"
-              }`}
-            >
-              {/* Build 4 cards for sliding window: current 3 + next/prev 1 */}
-              {(() => {
-                const order = testimonials.slice(idx).concat(testimonials.slice(0, idx));
-                const windowItems =
-                  direction === "next"
-                    ? order.slice(0, 4)
-                    : [order[(total - 1) % total], ...order.slice(0, 3)];
-                return windowItems.map((t, i) => (
-                  <figure
-                    key={t.name + i + direction}
-                    className="shrink-0 grow-0 basis-[calc((100%-48px)/3)] p-6 rounded-2xl bg-card shadow-md border border-border/60 relative"
-                  >
-                    <Quote className="absolute top-4 left-4 text-primary/30" />
-                    <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
-                      “{t.text}”
-                    </blockquote>
-                    <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-                      <img
-                        src={`https://picsum.photos/seed/face-${t.name}-${i}/64/64`}
-                        alt={t.name}
-                        width={40}
-                        height={40}
-                        className="rounded-full h-10 w-10 object-cover"
-                        loading="lazy"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div>
-                        <div className="font-medium text-foreground">{t.name}</div>
-                        <div>{t.role}</div>
-                      </div>
-                    </figcaption>
-                  </figure>
-                ));
-              })()}
+      <div className="overflow-hidden">
+        <div
+          className="-mx-3 flex will-change-transform"
+          style={{
+            transform,
+            transition: disableTransition ? "none" : "transform 500ms ease",
+          }}
+        >
+          {track.map((t, i) => (
+            <div key={t.name + i} className="px-3" style={{ minWidth: `${cardWidthPercent}%` }}>
+              <figure className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative h-full">
+                <Quote className="absolute top-4 left-4 text-primary/30" />
+                <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
+                  “{t.text}”
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
+                  <img
+                    src={`https://picsum.photos/seed/face-${t.name}-${i}/64/64`}
+                    alt={t.name}
+                    width={40}
+                    height={40}
+                    className="rounded-full h-10 w-10 object-cover"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div>
+                    <div className="font-medium text-foreground">{t.name}</div>
+                    <div>{t.role}</div>
+                  </div>
+                </figcaption>
+              </figure>
             </div>
-          </div>
-        )}
+          ))}
+        </div>
       </div>
       <div className="mt-4 flex justify-center gap-1">
-        {Array.from({ length: total }).map((_, i) => (
+        {Array.from({ length: pageCount }).map((_, i) => (
           <button
             key={i}
-            aria-label={`Slayd ${i + 1}`}
-            onClick={() => goTo(i)}
-            className={`h-1.5 w-4 rounded-full transition-colors ${i === idx ? "bg-primary" : "bg-border"}`}
+            aria-label={`Sahifa ${i + 1}`}
+            onClick={() => setIndex(total + i)}
+            className={`h-1.5 w-4 rounded-full transition-colors ${i === currentStart ? "bg-primary" : "bg-border"}`}
           />
         ))}
       </div>

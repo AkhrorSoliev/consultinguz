@@ -1,9 +1,9 @@
 import ComingSoon from "@/components/ComingSoon";
 
 export const metadata = {
-  title: "Ish qidiruvchilar",
+  title: "Arbeitssuchende",
 };
 
 export default function Page() {
-  return <ComingSoon pageName="Ish qidiruvchilar" />;
+  return <ComingSoon pageKey="seg_jobseekers_title" />;
 }

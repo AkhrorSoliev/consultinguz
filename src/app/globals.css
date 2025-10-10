@@ -177,4 +177,87 @@
   .dark .text-muted-foreground {
     color: var(--muted-foreground) !important;
   }
+  /* MagicBento helpers */
+  .bento-section {
+    --glow-x: 50%;
+    --glow-y: 50%;
+    --glow-intensity: 0;
+    --glow-radius: 200px;
+  }
+  .card--border-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 6px;
+    background: radial-gradient(
+      var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.8)) 0%,
+      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.4)) 30%,
+      transparent 60%
+    );
+    border-radius: inherit;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+}
+
+/* Minimal styles for react-slick (since theme CSS is not available) */
+.slick-slider {
+  position: relative;
+  display: block;
+  user-select: none;
+  touch-action: pan-y;
+}
+.slick-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.slick-track {
+  display: flex;
+}
+.slick-slide {
+  height: auto;
+}
+.slick-dots {
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+.slick-dots li {
+  width: auto;
+  height: auto;
+}
+.slick-dots button {
+  width: 16px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--border);
+  color: transparent;
+  overflow: hidden;
+}
+.slick-dots .slick-active button {
+  background: var(--primary);
+}
+
+/* Global marquee for results/cards */
+@keyframes results_marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.3333%);
+  }
 }

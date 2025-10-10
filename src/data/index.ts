@@ -33,6 +33,21 @@ export const testimonials = [
     name: "S.T.",
     text: "Professional muloqot va natijalar.",
   },
+  {
+    role: "Ish izlovchi",
+    name: "N.K.",
+    text: "Jarayon juda tushunarli va qulay bo'ldi.",
+  },
+  {
+    role: "Ish beruvchi",
+    name: "A.R.",
+    text: "Nomzodlar sifati kutilganidan yuqori edi.",
+  },
+  {
+    role: "Ish izlovchi",
+    name: "J.B.",
+    text: "Hujjatlar bo'yicha to'liq ko'mak oldim.",
+  },
 ] as const;
 
 export type Stat = (typeof stats)[number];

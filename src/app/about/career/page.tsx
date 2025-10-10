@@ -2,9 +2,9 @@ import ComingSoon from "@/components/ComingSoon";
 // update this page
 
 export const metadata = {
-  title: "Karyera",
+  title: "Karriere",
 };
 
 export default function Page() {
-  return <ComingSoon pageName="Karyera" />;
+  return <ComingSoon pageKey="nav_career" />;
 }

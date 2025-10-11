@@ -6,13 +6,15 @@ import { Briefcase, Users } from "lucide-react";
 import AboutBrief from "./AboutBrief";
 import { motion } from "framer-motion";
 import { useI18n } from "@/components/providers/translation-provider";
+import Aurora from "./Aurora";
+import BlurText from "./BlurText";
 
 export default function Hero() {
   const { t } = useI18n();
   return (
     <section className="relative overflow-hidden h-[100svh] -mt-16 flex items-center justify-center">
       {/* Background image + subtle overlay */}
-
+      <Aurora />
       <div className="absolute inset-0 -z-10">
         <div
           aria-hidden
@@ -40,12 +42,15 @@ export default function Hero() {
           >
             {t("hero_pill")}
           </motion.div>
-          <motion.h1
-            variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
-            className="text-[clamp(30px,4.5vw,52px)] font-bold leading-tight tracking-tight text-primary"
-          >
-            {t("hero_title")}
-          </motion.h1>
+
+          <BlurText
+            text={t("hero_title")}
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          />
+
           <motion.p
             variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
             className="font-pt text-[clamp(16px,2.2vw,20px)] text-muted-foreground mx-auto"

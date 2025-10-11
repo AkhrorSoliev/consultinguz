@@ -11,6 +11,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
@@ -22,8 +23,11 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.22",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.545.0",
+    "motion": "^12.23.24",
     "next": "15.5.4",
+    "ogl": "^1.0.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-slick": "^0.30.2",

@@ -109,8 +109,15 @@ export default function Testimonials() {
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold">{t("testimonials_title")}</h2>
+      <div className="mb-6 sm:mb-8 text-center">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
+          {t("testimonials_title")}
+        </h2>
+      </div>
+      <p className="font-pt text-muted-foreground text-center -mt-4 mb-6 text-pretty max-w-prose mx-auto">
+        {t("testimonials_desc")}
+      </p>
+      <div className="flex justify-center sm:justify-end mb-2">
         <div className="flex gap-2">
           <button
             aria-label="Oldingi"
@@ -139,8 +146,8 @@ export default function Testimonials() {
           {track.map((t, i) => (
             <div key={t.name + i} className="px-3" style={{ minWidth: `${cardWidthPercent}%` }}>
               <figure className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative h-full">
-                <Quote className="absolute top-4 left-4 text-primary/30" />
-                <blockquote className="font-pt text-foreground/90 leading-relaxed mt-6">
+                <Quote className="absolute top-4 left-4 text-primary/40" />
+                <blockquote className="font-pt text-base sm:text-lg text-foreground/90 leading-relaxed mt-6">
                   “{t.text}”
                 </blockquote>
                 <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
@@ -163,7 +170,7 @@ export default function Testimonials() {
           ))}
         </div>
       </div>
-      <div className="mt-4 flex justify-center gap-1">
+      <div className="mt-6 flex justify-center gap-1">
         {Array.from({ length: pageCount }).map((_, i) => (
           <button
             key={i}

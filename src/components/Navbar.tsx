@@ -24,7 +24,14 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Globe, Laptop, Moon, Sun, Menu, Briefcase, Info, ShieldCheck, Phone } from "lucide-react";
-import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useI18n } from "@/components/providers/translation-provider";
 
 const linkBase =
@@ -339,7 +346,9 @@ function MobileMenu({
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="p-0">
-        <div className="p-6 border-b"></div>
+        <SheetHeader className="p-6 border-b">
+          <SheetTitle className="text-base font-medium">Menu</SheetTitle>
+        </SheetHeader>
 
         <nav className="p-2 space-y-4" aria-label="Mobile Primary">
           <div className="space-y-1">

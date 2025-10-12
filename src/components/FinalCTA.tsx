@@ -2,25 +2,41 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MessageSquare } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
+import { Section, SectionHeader } from "@/components/ui/section";
 
 export default function FinalCTA() {
   const { t } = useI18n();
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="rounded-2xl bg-primary text-primary-foreground p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-lg">
-        <div>
-          <h3 className="text-xl md:text-2xl font-bold">{t("cta_title")}</h3>
-          <p className="font-pt opacity-90">{t("cta_desc")}</p>
+    <Section as="section" variant="brand">
+      <div className="relative">
+        <div className="absolute inset-0 -z-10 opacity-60">
+          <div className="mx-auto max-w-6xl h-40 blur-[60px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_60%)]" />
         </div>
-        <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
-          <Link href="/contact">
-            <MessageSquare className="size-4" />
-            <span>{t("cta_button")}</span>
-          </Link>
-        </Button>
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionHeader
+            align="center"
+            title={t("cta_title")}
+            subtitle={t("cta_desc")}
+            titleClassName="text-3xl sm:text-4xl lg:text-5xl"
+            subtitleClassName="text-base sm:text-lg text-primary-foreground/90"
+            className="mb-0"
+          />
+          <div className="mt-7">
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto bg-white text-primary hover:bg-white/90"
+            >
+              <Link href="/contact">
+                <span>{t("cta_button")}</span>
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

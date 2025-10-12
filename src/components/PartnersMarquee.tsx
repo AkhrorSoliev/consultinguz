@@ -15,7 +15,7 @@ export default function PartnersMarquee() {
     // No runtime logic needed; using CSS animation only with extended distance
   }, []);
   return (
-    <section className="relative py-12 border-y border-muted overflow-hidden bg-background">
+    <section className="relative py-16 sm:py-20 border-y border-muted overflow-hidden bg-background">
       <div
         className="pointer-events-none absolute inset-0 dark:hidden"
         aria-hidden="true"
@@ -24,8 +24,10 @@ export default function PartnersMarquee() {
             "radial-gradient(1000px 400px at 50% -10%, hsl(var(--muted) / 0.6), transparent 60%)",
         }}
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold mb-6">{t("partners_title")}</h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance mb-6">
+          {t("partners_title")}
+        </h2>
       </div>
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent dark:from-muted/10 pointer-events-none" />

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 type SectionVariant = "default" | "subtle" | "muted" | "brand";
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
   variant?: SectionVariant;
   contained?: boolean;
 }

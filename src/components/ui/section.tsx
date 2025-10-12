@@ -17,7 +17,7 @@ export function Section({
   children,
   ...props
 }: SectionProps) {
-  const Comp = as as any;
+  const Comp = as as React.ElementType;
 
   const backgroundClass =
     variant === "brand"

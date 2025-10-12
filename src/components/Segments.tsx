@@ -23,7 +23,7 @@ function Feature({ icon: Icon, title, desc }: { icon: LucideIcon; title: string;
         </div>
         <div className="font-semibold">{title}</div>
       </div>
-      <p className="font-pt text-sm text-muted-foreground mt-3 leading-relaxed">{desc}</p>
+      <p className="font-pt text-base text-muted-foreground mt-3 leading-relaxed">{desc}</p>
     </div>
   );
 }
@@ -69,15 +69,19 @@ export default function Segments() {
   const candReveal = useReveal<HTMLDivElement>();
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       <div className="space-y-12">
         <div
           ref={empReveal.ref}
           className={`transition duration-300 ${empReveal.revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
         >
-          <div className="mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold">{t("seg_employers_title")}</h2>
-            <p className="font-pt text-muted-foreground">{t("seg_employers_desc")}</p>
+          <div className="mb-8 sm:mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
+              {t("seg_employers_title")}
+            </h2>
+            <p className="font-pt text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
+              {t("seg_employers_desc")}
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {emp.map((f) => (
@@ -99,9 +103,13 @@ export default function Segments() {
           ref={candReveal.ref}
           className={`transition duration-300 ${candReveal.revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
         >
-          <div className="mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold">{t("seg_jobseekers_title")}</h2>
-            <p className="font-pt text-muted-foreground">{t("seg_jobseekers_desc")}</p>
+          <div className="mb-8 sm:mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
+              {t("seg_jobseekers_title")}
+            </h2>
+            <p className="font-pt text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
+              {t("seg_jobseekers_desc")}
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {cand.map((f) => (

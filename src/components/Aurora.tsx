@@ -198,5 +198,10 @@ export default function Aurora(props: AuroraProps) {
     };
   }, [amplitude, blend, colorStops]);
 
-  return <div ref={ctnDom} className="w-full h-full absolute -z-5 rotate-180 hidden dark:block" />;
+  return (
+    <div
+      ref={ctnDom}
+      className="w-full h-[40%] absolute bottom-0 -z-5 rotate-180 hidden dark:block"
+    />
+  );
 }

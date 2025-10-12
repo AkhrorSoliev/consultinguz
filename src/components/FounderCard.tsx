@@ -8,7 +8,7 @@ import { useI18n } from "@/components/providers/translation-provider";
 export default function FounderCard() {
   const { t } = useI18n();
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       <div className="relative overflow-hidden flex flex-col md:flex-row items-center md:items-stretch gap-4 sm:gap-6 lg:gap-10 p-4 sm:p-6 md:p-8 rounded-2xl bg-card border shadow-lg">
         {/* Decorative subtle gradients */}
         <div className="hidden sm:block pointer-events-none absolute -top-10 -left-10 h-56 w-56 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,51,153,0.14),transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_60%)] blur-2xl" />
@@ -22,14 +22,14 @@ export default function FounderCard() {
             decoding="async"
           />
         </div>
-        <div className="flex flex-col justify-center mt-4 md:mt-0 text-center md:text-left max-w-xl">
+        <div className="flex flex-col justify-center mt-4 md:mt-0 text-center md:text-left max-w-2xl mx-auto md:mx-0">
           <div className="flex items-start">
             <Quote aria-hidden className="hidden lg:block size-8 mr-2 mt-0.5 text-primary/30" />
-            <p className="font-pt text-base sm:text-lg md:text-xl leading-snug text-slate-700 dark:text-slate-200">
+            <p className="font-pt text-lg sm:text-xl md:text-2xl leading-snug text-slate-700 dark:text-slate-200">
               {t("founder_quote")}
             </p>
           </div>
-          <p className="font-pt text-sm sm:text-base text-muted-foreground dark:text-slate-300 mt-3 md:mt-4">
+          <p className="font-pt text-base sm:text-lg text-muted-foreground dark:text-slate-300 mt-3 md:mt-4">
             {t("founder_desc")}
           </p>
           <div className="mt-5 flex flex-col items-center md:items-start gap-1.5 md:gap-2.5">

@@ -124,7 +124,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans leading-relaxed;
   }
   h1,
   h2,
@@ -132,11 +132,19 @@
   h4,
   h5,
   h6 {
-    @apply font-sans font-bold;
+    @apply font-sans font-bold tracking-tight text-balance;
   }
   p,
   .font-pt {
     font-family: var(--font-pt);
+  }
+  /* Improve default focus styles for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  /* Smooth section spacing inside containers */
+  main > section > div > * + * {
+    @apply mt-6;
   }
   /* Global hover cursor for links and buttons */
   a:hover,
@@ -176,6 +184,17 @@
   /* Ensure muted text is readable in dark mode regardless of cascade */
   .dark .text-muted-foreground {
     color: var(--muted-foreground) !important;
+  }
+  /* Readability helpers */
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Container helpers */
+  .container-px {
+    @apply px-4 sm:px-6 lg:px-8;
   }
   /* removed MagicBento helpers */
 }

@@ -58,6 +58,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
 
     // Testimonials / Partners
     testimonials_title: "Mijozlar fikri",
+    testimonials_desc: "Haqiqiy tajribalar va tasdiqlangan natijalar.",
     partners_title: "Ishonchli hamkorlar",
 
     // Results
@@ -74,6 +75,14 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     cta_title: "Ishonchli hamkor izlayapsizmi?",
     cta_desc: "Bepul maslahat oling va jarayonni bugun boshlang.",
     cta_button: "Bepul maslahat",
+    cta_badge_compliance: "Muvofiqlik va shaffoflik",
+    cta_badge_consulting: "Hamkorlikka asoslangan maslahat",
+    cta_badge_speed: "Tezkor va ishonchli",
+    cta_form_title: "Bepul maslahat oling",
+    cta_form_desc: "2–3 ish kuni ichida siz bilan bog'lanamiz.",
+    cta_bullet_1: "Shaffof jarayon va aniq bosqichlar",
+    cta_bullet_2: "Shaxsiy maslahatchi va qo'llab-quvvatlash",
+    cta_bullet_3: "Tezkor javob va ishonchli natija",
 
     // Employers / Jobseekers
     emp_title: "Ish beruvchilar uchun",
@@ -178,6 +187,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
 
     // Testimonials / Partners
     testimonials_title: "Kundenstimmen",
+    testimonials_desc: "Echte Erfahrungen. Verifizierte Ergebnisse.",
     partners_title: "Vertrauensvolle Partner",
 
     // Results
@@ -191,9 +201,17 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     footer_about: "Über uns",
     footer_socials: "Soziale Netzwerke",
     footer_rights: "© 2025 ConsultingUZ. Alle Rechte vorbehalten.",
-    cta_title: "Suchen Sie einen verlässlichen Partner?",
-    cta_desc: "Holen Sie sich eine kostenlose Beratung und starten Sie noch heute.",
-    cta_button: "Kostenlose Beratung",
+    cta_title: "Ihr verlässlicher Partner für internationale Fachkräfte",
+    cta_desc: "Lassen Sie uns Ihre Anforderungen besprechen – unverbindlich und konkret.",
+    cta_button: "Kostenlos beraten lassen",
+    cta_badge_compliance: "Compliance & Transparenz",
+    cta_badge_consulting: "Beratung auf Augenhöhe",
+    cta_badge_speed: "Schnell und zuverlässig",
+    cta_form_title: "Kostenlose Beratung anfordern",
+    cta_form_desc: "Wir melden uns innerhalb von 2–3 Werktagen.",
+    cta_bullet_1: "Transparenter Prozess mit klaren Schritten",
+    cta_bullet_2: "Persönliche Beratung und Betreuung",
+    cta_bullet_3: "Schnelle Rückmeldung und verlässliche Ergebnisse",
 
     // Employers / Jobseekers
     emp_title: "Für Arbeitgeber",

@@ -44,10 +44,14 @@ export default function ResultsMarquee() {
   const track = useMemo(() => [...items, ...items, ...items], [items]);
 
   return (
-    <section className="relative py-12 border-y border-muted overflow-hidden bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold mb-6">{t("results_title")}</h2>
-        <p className="font-pt text-muted-foreground mb-6">{t("results_desc")}</p>
+    <section className="relative py-16 sm:py-20 border-y border-muted overflow-hidden bg-background">
+      <div className="px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
+          {t("results_title")}
+        </h2>
+        <p className="font-pt text-muted-foreground mt-2 mb-6 text-pretty max-w-prose mx-auto">
+          {t("results_desc")}
+        </p>
       </div>
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent dark:from-muted/10 pointer-events-none" />

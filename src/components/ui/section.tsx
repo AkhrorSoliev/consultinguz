@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 type SectionVariant = "default" | "subtle" | "muted" | "brand";
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
+  as?: "section" | "div" | "header" | "main" | "footer" | "aside" | "article";
   variant?: SectionVariant;
   contained?: boolean;
 }
@@ -17,7 +17,7 @@ export function Section({
   children,
   ...props
 }: SectionProps) {
-  const Comp = as as React.ElementType;
+  const Comp = as;
 
   const backgroundClass =
     variant === "brand"

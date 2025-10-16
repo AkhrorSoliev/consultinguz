@@ -16,6 +16,10 @@ import { easing } from "maath";
 
 type Mode = "lens" | "bar" | "cube";
 
+// Responsive config values for NavItems
+const NAV_MOBILE_MAX = 639;
+const NAV_TABLET_MAX = 1023;
+
 interface NavItem {
   label: string;
   link: string;
@@ -217,31 +221,22 @@ function NavItems({ items }: { items: NavItem[] }) {
   const group = useRef<THREE.Group>(null!);
   const { viewport, camera } = useThree();
 
-  const DEVICE = {
-    mobile: { max: 639, spacing: 0.2, fontSize: 0.035 },
-    tablet: { max: 1023, spacing: 0.24, fontSize: 0.045 },
-    desktop: { max: Infinity, spacing: 0.3, fontSize: 0.045 },
-  };
   const getDevice = () => {
     const w = window.innerWidth;
-    return w <= DEVICE.mobile.max ? "mobile" : w <= DEVICE.tablet.max ? "tablet" : "desktop";
+    return w <= NAV_MOBILE_MAX ? "mobile" : w <= NAV_TABLET_MAX ? "tablet" : "desktop";
   };
 
-  const [device, setDevice] = useState<keyof typeof DEVICE>(getDevice());
+  const [device, setDevice] = useState<"mobile" | "tablet" | "desktop">(getDevice());
 
   useEffect(() => {
-    const computeDevice = () => {
-      const w = window.innerWidth;
-      const next =
-        w <= DEVICE.mobile.max ? "mobile" : w <= DEVICE.tablet.max ? "tablet" : "desktop";
-      setDevice(next);
-    };
+    const computeDevice = () => setDevice(getDevice());
     computeDevice();
     window.addEventListener("resize", computeDevice);
     return () => window.removeEventListener("resize", computeDevice);
   }, []);
 
-  const { spacing, fontSize } = DEVICE[device];
+  const spacing = device === "mobile" ? 0.2 : device === "tablet" ? 0.24 : 0.3;
+  const fontSize = device === "mobile" ? 0.035 : device === "tablet" ? 0.045 : 0.045;
 
   useFrame(() => {
     if (!group.current) return;

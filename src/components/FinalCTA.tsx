@@ -1,18 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
 import { Section, SectionHeader } from "@/components/ui/section";
 
+const FluidGlass = dynamic(() => import("@/components/FluidGlass"), {
+  ssr: false,
+  loading: () => null,
+});
+
 export default function FinalCTA() {
   const { t } = useI18n();
+  const [mounted, setMounted] = useState(false);
+  const isProd = process.env.NODE_ENV === "production";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <Section as="section" variant="brand">
       <div className="relative">
-        <div className="absolute inset-0 -z-10 opacity-60">
-          <div className="mx-auto max-w-6xl h-40 blur-[60px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_60%)]" />
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          {mounted && isProd ? <FluidGlass mode="lens" /> : null}
         </div>
         <div className="mx-auto max-w-3xl text-center">
           <SectionHeader

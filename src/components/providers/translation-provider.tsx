@@ -29,6 +29,25 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_compliance: "Muvofiqlik",
     nav_contact: "Aloqa",
 
+    // Contact modal
+    contact_role_title: "Siz kim sifatida murojaat qilyapsiz?",
+    contact_role_desc: "Quyidagilardan birini tanlang, sizga mos aloqa ma'lumotlarini ko'rsatamiz.",
+    contact_role_employer: "Ish beruvchi",
+    contact_role_jobseeker: "Ish izlovchi",
+    contact_role_change: "Rolni o'zgartirish",
+    contact_card_employer_title: "Ish beruvchilar uchun aloqa",
+    contact_card_jobseeker_title: "Ish izlovchilar uchun aloqa",
+    contact_phone: "Telefon",
+    contact_email: "Email",
+    contact_address: "Manzil",
+
+    // Contact form
+    form_name: "Ism",
+    form_email: "Email",
+    form_phone: "Telefon",
+    form_message: "Xabar",
+    form_submit: "Yuborish",
+
     // Hero
     hero_pill: "Xalqaro kadr tanlovi",
     hero_title: "Ish beruvchilar va malakali mutaxassislar o'rtasida ishonchli ko'prik.",
@@ -155,6 +174,25 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_team: "Team",
     nav_compliance: "Compliance",
     nav_contact: "Kontakt",
+
+    // Contact modal
+    contact_role_title: "Wie möchten Sie uns kontaktieren?",
+    contact_role_desc: "Wählen Sie eine Option, wir zeigen passende Kontaktangaben.",
+    contact_role_employer: "Arbeitgeber",
+    contact_role_jobseeker: "Arbeitssuchende/r",
+    contact_role_change: "Rolle ändern",
+    contact_card_employer_title: "Kontakt für Arbeitgeber",
+    contact_card_jobseeker_title: "Kontakt für Arbeitssuchende",
+    contact_phone: "Telefon",
+    contact_email: "E-Mail",
+    contact_address: "Adresse",
+
+    // Contact form
+    form_name: "Name",
+    form_email: "E-Mail",
+    form_phone: "Telefon",
+    form_message: "Nachricht",
+    form_submit: "Senden",
 
     // Hero
     hero_pill: "Internationale Personalvermittlung",

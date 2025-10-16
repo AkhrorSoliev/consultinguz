@@ -4,6 +4,9 @@
 // Use plain img tag to ensure reliable rendering in production
 import { Quote } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
+import { Imperial_Script } from "next/font/google";
+
+const imperial = Imperial_Script({ subsets: ["latin"], weight: "400" });
 
 export default function FounderCard() {
   const { t } = useI18n();
@@ -32,8 +35,10 @@ export default function FounderCard() {
           <p className="font-pt text-base sm:text-lg text-muted-foreground dark:text-slate-300 mt-3 md:mt-4">
             {t("founder_desc")}
           </p>
-          <div className="mt-5 flex flex-col items-center md:items-start gap-1.5 md:gap-2.5">
-            <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100">
+          <div className="mt-5 flex flex-col items-end md:items-end gap-1.5 md:gap-2.5 self-end ml-auto text-right">
+            <div
+              className={`text-2xl sm:text-3xl md:text-4xl font-normal text-slate-900 dark:text-slate-100 ${imperial.className}`}
+            >
               Herr Orif Akhmadaliyev
             </div>
             <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-50/60 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 shadow-sm">

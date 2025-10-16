@@ -21,9 +21,13 @@ export default function Process() {
   const steps = buildSteps(t);
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold">{t("process_title")}</h2>
-        <p className="font-pt text-muted-foreground">{t("process_desc")}</p>
+      <div className="mb-6 text-center">
+        <h2 className="text-balance text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
+          {t("process_title")}
+        </h2>
+        <p className="text-pretty text-muted-foreground mt-3 max-w-2xl mx-auto">
+          {t("process_desc")}
+        </p>
       </div>
       <div
         ref={r.ref}

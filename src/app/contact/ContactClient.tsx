@@ -90,7 +90,7 @@ export default function ContactClient() {
       await new Promise((res) => setTimeout(res, 900));
       setSubmitted("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
-    } catch (err) {
+    } catch {
       setSubmitted("error");
     } finally {
       setSubmitting(false);

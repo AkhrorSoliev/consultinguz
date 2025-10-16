@@ -80,7 +80,7 @@ interface ZoomMaterial extends THREE.Material {
   zoom: number;
 }
 
-interface ZoomMesh extends THREE.Mesh<THREE.BufferGeometry, ZoomMaterial> {}
+type ZoomMesh = THREE.Mesh<THREE.BufferGeometry, ZoomMaterial>;
 
 type ZoomGroup = THREE.Group & { children: ZoomMesh[] };
 
@@ -230,9 +230,15 @@ function NavItems({ items }: { items: NavItem[] }) {
   const [device, setDevice] = useState<keyof typeof DEVICE>(getDevice());
 
   useEffect(() => {
-    const onResize = () => setDevice(getDevice());
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const computeDevice = () => {
+      const w = window.innerWidth;
+      const next =
+        w <= DEVICE.mobile.max ? "mobile" : w <= DEVICE.tablet.max ? "tablet" : "desktop";
+      setDevice(next);
+    };
+    computeDevice();
+    window.addEventListener("resize", computeDevice);
+    return () => window.removeEventListener("resize", computeDevice);
   }, []);
 
   const { spacing, fontSize } = DEVICE[device];
@@ -249,7 +255,11 @@ function NavItems({ items }: { items: NavItem[] }) {
 
   const handleNavigate = (link: string) => {
     if (!link) return;
-    link.startsWith("#") ? (window.location.hash = link) : (window.location.href = link);
+    if (link.startsWith("#")) {
+      window.location.hash = link;
+    } else {
+      window.location.href = link;
+    }
   };
 
   return (
@@ -295,10 +305,15 @@ function Images() {
 
   return (
     <group ref={group}>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[-2, 0, 0]} scale={[3, height / 1.1]} url="/assets/demo/cs1.webp" />
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[2, 0, 3]} scale={3} url="/assets/demo/cs2.webp" />
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[-2.05, -height, 6]} scale={[1, 3]} url="/assets/demo/cs3.webp" />
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[-0.6, -height, 9]} scale={[1, 2]} url="/assets/demo/cs1.webp" />
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image position={[0.75, -height, 10.5]} scale={1.5} url="/assets/demo/cs2.webp" />
     </group>
   );
@@ -318,9 +333,14 @@ function Typography() {
   const [device, setDevice] = useState<keyof typeof DEVICE>(getDevice());
 
   useEffect(() => {
-    const onResize = () => setDevice(getDevice());
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const computeDevice = () => {
+      const w = window.innerWidth;
+      const next = w <= 639 ? "mobile" : w <= 1023 ? "tablet" : "desktop";
+      setDevice(next);
+    };
+    computeDevice();
+    window.addEventListener("resize", computeDevice);
+    return () => window.removeEventListener("resize", computeDevice);
   }, []);
 
   const { fontSize } = DEVICE[device];

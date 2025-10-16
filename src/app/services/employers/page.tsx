@@ -5,5 +5,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <ComingSoon pageKey="seg_employers_title" />;
+  return <ComingSoon pageKey="nav_employers" />;
 }

@@ -62,15 +62,15 @@ export default function Hero() {
             className="flex flex-wrap justify-center gap-3"
           >
             <Button asChild size="lg">
-              <Link href="/services/jobseekers">
-                <Briefcase className="size-4" />
-                <span>{t("hero_cta_jobseekers")}</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-2">
               <Link href="/services/employers">
                 <Users className="size-4" />
                 <span>{t("hero_cta_employers")}</span>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="border-2">
+              <Link href="/services/jobseekers">
+                <Briefcase className="size-4" />
+                <span>{t("hero_cta_jobseekers")}</span>
               </Link>
             </Button>
           </motion.div>

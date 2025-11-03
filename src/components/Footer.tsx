@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { InstagramIcon, LinkedinIcon, SendIcon } from "lucide-react";
+import { InstagramIcon, LinkedinIcon, SendIcon, YoutubeIcon } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
 
 export default function Footer() {
@@ -67,11 +67,6 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link className="hover:underline" href="/about/career">
-                {t("nav_career")}
-              </Link>
-            </li>
-            <li>
               <Link className="hover:underline" href="/about/team">
                 {t("nav_team")}
               </Link>
@@ -86,14 +81,33 @@ export default function Footer() {
         <div>
           <div className="font-semibold mb-3">{t("footer_socials")}</div>
           <div className="flex gap-3 text-muted-foreground">
-            <Link aria-label="LinkedIn" href="#" className="hover:text-foreground">
+            <Link
+              aria-label="LinkedIn"
+              href="https://www.linkedin.com/in/consulting-uz-39b908297/"
+              className="hover:text-foreground"
+            >
               <LinkedinIcon />
             </Link>
-            <Link aria-label="Telegram" href="#" className="hover:text-foreground">
+            <Link
+              aria-label="Telegram"
+              href="https://t.me/Consulting_UZB"
+              className="hover:text-foreground"
+            >
               <SendIcon />
             </Link>
-            <Link aria-label="Instagram" href="#" className="hover:text-foreground">
+            <Link
+              aria-label="Instagram"
+              href="https://www.instagram.com/consulting__uz/profilecard/?igsh=dW5tbjczbGU2ampp"
+              className="hover:text-foreground"
+            >
               <InstagramIcon />
+            </Link>
+            <Link
+              aria-label="Instagram"
+              href="http://www.youtube.com/@consultingUz1"
+              className="hover:text-foreground"
+            >
+              <YoutubeIcon />
             </Link>
           </div>
         </div>

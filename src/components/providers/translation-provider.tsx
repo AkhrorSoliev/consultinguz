@@ -132,10 +132,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     job_verified_desc: "Ishonchli hamkorlar bilan tekshirilgan bo'sh ish o'rinlari.",
 
     // Founder
-    founder_quote:
-      "Bizning maqsadimiz — intilish va imkoniyatni shaffof va samarali tarzda bog'lash.",
-    founder_desc:
-      "Bu qarash bizning har bir hamkorlik va jarayondagi yondashuvimizning markazida. Nomzodlar uchun aniq yo'l xaritasi, ish beruvchilar uchun esa natijaga yo'naltirilgan, halol va mas'uliyatli hamkorlikni ta'minlaymiz.",
+    founder_quote: `Biz kompaniyalarga to'liq "xavotirsiz" paketni taklif qilamiz — til va kasbiy tayyorgarlikdan tortib Germaniyaga kelgandan keyingi barqaror integratsiyagacha bo'lgan barcha bosqichlarni o'z ichiga olgan.`,
     founder_role: "Kompaniya Direktori",
     founder_alt: "Kompaniya direktori Orif Akhmadaliyev",
 
@@ -196,8 +193,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
 
     // Hero
     hero_pill: "Internationale Personalvermittlung",
-    hero_title:
-      "Die vertrauenswürdige Brücke zwischen Arbeitgebern und qualifizierten Fachkräften.",
+    hero_title: "Eine verlässliche Brücke zwischen Arbeitgebern und qualifizierten Fachkräften.",
     hero_desc:
       "Vom Auswahlprozess bis Visum und Arbeitsaufnahme – transparent, schnell und zuverlässig.",
     hero_cta_jobseekers: "Ich suche einen Job",
@@ -282,9 +278,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
 
     // Founder
     founder_quote:
-      "Unser Ziel ist es, Ambitionen und Chancen transparent und effizient zu verbinden.",
-    founder_desc:
-      "Dieser Anspruch steht im Zentrum jeder Zusammenarbeit und jedes Prozesses. Für Kandidaten bieten wir einen klaren Fahrplan, für Arbeitgeber eine ergebnisorientierte, ehrliche und verantwortungsvolle Partnerschaft.",
+      "Wir bieten Unternehmen ein Rundum-sorglos-Paket – von der sprachlichen und fachlichen Vorbereitung bis zur nachhaltigen Integration nach der Ankunft in Deutschland.",
     founder_role: "Geschäftsführer",
     founder_alt: "Geschäftsführer Orif Akhmadaliyev",
 

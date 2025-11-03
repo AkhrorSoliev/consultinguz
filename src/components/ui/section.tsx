@@ -68,11 +68,6 @@ export function SectionHeader({
         className
       )}
     >
-      {eyebrow ? (
-        <div className="text-xs sm:text-sm font-medium tracking-wide uppercase text-muted-foreground">
-          {eyebrow}
-        </div>
-      ) : null}
       <h2
         className={cn(
           "text-balance text-2xl sm:text-3xl lg:text-4xl font-bold mt-2",
@@ -82,12 +77,7 @@ export function SectionHeader({
         {title}
       </h2>
       {subtitle ? (
-        <p
-          className={cn(
-            "text-pretty text-muted-foreground mt-3 max-w-2xl mx-auto",
-            subtitleClassName
-          )}
-        >
+        <p className={cn("text-pretty text-muted-foreground mt-3 max-w-2xl", subtitleClassName)}>
           {subtitle}
         </p>
       ) : null}

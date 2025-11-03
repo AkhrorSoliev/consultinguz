@@ -32,10 +32,8 @@ export default function FounderCard() {
               {t("founder_quote")}
             </p>
           </div>
-          <p className="font-pt text-base sm:text-lg text-muted-foreground dark:text-slate-300 mt-3 md:mt-4">
-            {t("founder_desc")}
-          </p>
-          <div className="mt-5 flex flex-col items-end md:items-end gap-1.5 md:gap-2.5 self-end ml-auto text-right">
+
+          <div className="mt-5 flex flex-col items-center w-full md:items-end gap-1.5 md:gap-2.5 self-end ml-auto text-right">
             <div
               className={`text-2xl sm:text-3xl md:text-4xl font-normal text-slate-900 dark:text-slate-100 ${imperial.className}`}
             >

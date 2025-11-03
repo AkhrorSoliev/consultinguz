@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/process",
     "/compliance",
     "/about/mission",
-    "/about/career",
     "/about/team",
   ];
   return routes.map((path) => ({

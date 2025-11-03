@@ -33,6 +33,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useI18n } from "@/components/providers/translation-provider";
+import pkg from "../../package.json";
 
 const linkBase =
   "px-3 py-2 rounded-md text-sm font-medium focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none";
@@ -40,6 +41,7 @@ const linkBase =
 export function Navbar() {
   const pathname = usePathname();
   const { t, lang, setLang } = useI18n();
+  const appVersion = pkg.version as string;
 
   const isActive = (href: string) => pathname === href || pathname?.startsWith(href + "/");
 
@@ -73,6 +75,12 @@ export function Navbar() {
             className="hidden dark:inline"
           />
           <span className="ml-2 font-bold text-lg">consultinguz</span>
+          <span
+            className="ml-2 rounded border border-border/60 px-1.5 py-0.5 text-[10px] leading-none text-muted-foreground"
+            aria-label={`Version ${appVersion}`}
+          >
+            v{appVersion}
+          </span>
         </Link>
 
         <div className="hidden md:block">
@@ -80,16 +88,14 @@ export function Navbar() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent inline-flex items-center gap-2">
-                  <Briefcase className="size-4" />
-                  <span>{t("nav_services")}</span>
+                  <Info className="size-4" />
+                  <span>{t("nav_about")}</span>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="p-2">
                   <ul className="grid gap-1 p-1 w-64">
                     {[
-                      ["/services/employers", t("nav_employers")],
-                      ["/services/jobseekers", t("nav_jobseekers")],
-                      ["/services/partners", t("nav_partners")],
-                      ["/services/process", t("nav_process")],
+                      ["/about/mission", t("nav_mission")],
+                      ["/about/team", t("nav_team")],
                     ].map(([href, label]) => (
                       <li key={href}>
                         <NavigationMenuLink asChild active={isActive(href)}>
@@ -108,18 +114,18 @@ export function Navbar() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent inline-flex items-center gap-2">
-                  <Info className="size-4" />
-                  <span>{t("nav_about")}</span>
+                  <Briefcase className="size-4" />
+                  <span>{t("nav_services")}</span>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="p-2">
                   <ul className="grid gap-1 p-1 w-64">
                     {[
-                      ["/about/mission", t("nav_mission")],
-                      ["/about/career", t("nav_career")],
-                      ["/about/team", t("nav_team")],
+                      ["/services/employers", t("nav_employers")],
+                      ["/services/jobseekers", t("nav_jobseekers")],
+                      ["/services/partners", t("nav_partners")],
+                      ["/services/process", t("nav_process")],
                     ].map(([href, label]) => (
                       <li key={href}>
                         <NavigationMenuLink asChild active={isActive(href)}>
@@ -388,7 +394,6 @@ function MobileMenu({
             <ul className="px-1">
               {[
                 ["/about/mission", t("nav_mission")],
-                ["/about/career", t("nav_career")],
                 ["/about/team", t("nav_team")],
               ].map(([href, label]) => (
                 <li key={href}>

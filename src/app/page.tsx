@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import FounderCard from "@/components/FounderCard";
 import Segments from "@/components/Segments";
-import Process from "@/components/Process";
+import ProcessSection from "@/components/ProcessSection";
 import PartnersMarquee from "@/components/PartnersMarquee";
 import ResultsMarquee from "@/components/ResultsMarquee";
 import Testimonials from "@/components/Testimonials";
@@ -31,7 +31,7 @@ export default function Home() {
       <ResultsMarquee />
 
       <Section>
-        <Process />
+        <ProcessSection />
       </Section>
 
       <Section variant="subtle">

@@ -176,7 +176,7 @@ export default function ContactClient() {
                     <div>
                       <div className="text-sm text-muted-foreground">{t("contact_phone")}</div>
                       <div className="font-medium">
-                        {role === "employer" ? "+49 (30) 123-456" : "+998 (90) 000-00-00"}
+                        {role === "employer" ? "+49 176 238 97 113" : "+998 (90) 000-00-00"}
                       </div>
                     </div>
                   </li>
@@ -187,7 +187,9 @@ export default function ContactClient() {
                     <div>
                       <div className="text-sm text-muted-foreground">{t("contact_email")}</div>
                       <div className="font-medium">
-                        {role === "employer" ? "employers@consultinguz.uz" : "job@consultinguz.uz"}
+                        {role === "employer"
+                          ? "orif.ahmadaliyev@consultinguz.de"
+                          : "job@consultinguz.uz"}
                       </div>
                     </div>
                   </li>
@@ -199,7 +201,7 @@ export default function ContactClient() {
                       <div className="text-sm text-muted-foreground">{t("contact_address")}</div>
                       <div className="font-medium">
                         {role === "employer"
-                          ? "Berlin, Deutschland"
+                          ? "Alemannenweg 6, 72488 Sigmaringen, Deutschland"
                           : "Toshkent, O'\u2019zbekiston"}
                       </div>
                     </div>

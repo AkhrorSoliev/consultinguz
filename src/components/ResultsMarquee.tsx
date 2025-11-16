@@ -27,7 +27,53 @@ export default function ResultsMarquee() {
       "Schweißer/in",
       "Mechaniker/in",
     ];
-    const total = 18;
+    const imageUrls = [
+      "https://json-api.uz/mnt/file-1763267786099.jpg",
+      "https://json-api.uz/mnt/file-1763267785896.jpg",
+      "https://json-api.uz/mnt/file-1763267786259.jpg",
+      "https://json-api.uz/mnt/file-1763267786035.jpg",
+      "https://json-api.uz/mnt/file-1763267786785.jpg",
+      "https://json-api.uz/mnt/file-1763267786076.jpg",
+      "https://json-api.uz/mnt/file-1763267788891.jpg",
+      "https://json-api.uz/mnt/file-1763267786306.jpg",
+      "https://json-api.uz/mnt/file-1763267786428.jpg",
+      "https://json-api.uz/mnt/file-1763267785866.jpg",
+      "https://json-api.uz/mnt/file-1763267786544.jpg",
+      "https://json-api.uz/mnt/file-1763267786744.jpg",
+      "https://json-api.uz/mnt/file-1763267786782.jpg",
+      "https://json-api.uz/mnt/file-1763267786218.jpg",
+      "https://json-api.uz/mnt/file-1763267786068.jpg",
+      "https://json-api.uz/mnt/file-1763267786073.jpg",
+      "https://json-api.uz/mnt/file-1763267786208.jpg",
+      "https://json-api.uz/mnt/file-1763267786581.jpg",
+      "https://json-api.uz/mnt/file-1763267786381.jpg",
+      "https://json-api.uz/mnt/file-1763267785862.jpg",
+      "https://json-api.uz/mnt/file-1763267786111.jpg",
+      "https://json-api.uz/mnt/file-1763267785898.jpg",
+      "https://json-api.uz/mnt/file-1763267786830.jpg",
+      "https://json-api.uz/mnt/file-1763267786042.jpg",
+      "https://json-api.uz/mnt/file-1763267786605.jpg",
+      "https://json-api.uz/mnt/file-1763267786394.jpg",
+      "https://json-api.uz/mnt/file-1763267788759.jpg",
+      "https://json-api.uz/mnt/file-1763267786029.jpg",
+      "https://json-api.uz/mnt/file-1763267786252.jpg",
+      "https://json-api.uz/mnt/file-1763267786569.jpg",
+      "https://json-api.uz/mnt/file-1763267786554.jpg",
+      "https://json-api.uz/mnt/file-1763267785864.jpg",
+      "https://json-api.uz/mnt/file-1763267786961.jpg",
+      "https://json-api.uz/mnt/file-1763267786899.jpg",
+      "https://json-api.uz/mnt/file-1763267786731.jpg",
+      "https://json-api.uz/mnt/file-1763267786607.jpg",
+      "https://json-api.uz/mnt/file-1763267786590.jpg",
+      "https://json-api.uz/mnt/file-1763267786783.jpg",
+      "https://json-api.uz/mnt/file-1763267786350.jpg",
+      "https://json-api.uz/mnt/file-1763267786340.jpg",
+      "https://json-api.uz/mnt/file-1763267786726.jpg",
+      "https://json-api.uz/mnt/file-1763267786829.jpg",
+      "https://json-api.uz/mnt/file-1763267786251.jpg",
+      "https://json-api.uz/mnt/file-1763267786429.jpg",
+    ];
+    const total = imageUrls.length;
     return Array.from({ length: total }, (_, i) => {
       const id = i + 1;
       return {
@@ -35,7 +81,7 @@ export default function ResultsMarquee() {
         name: `Kandidat ${id}`,
         role: roles[i % roles.length],
         country: "Deutschland",
-        imageUrl: `https://picsum.photos/seed/result_${id}/400/300`,
+        imageUrl: imageUrls[i],
       };
     });
   }, []);
@@ -71,14 +117,8 @@ export default function ResultsMarquee() {
                   width={320}
                   height={240}
                   loading="lazy"
-                  className="h-48 w-[320px] object-cover"
+                  className="h-48 w-[320px] object-cover object-[20%_40%]"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/70 to-transparent text-white">
-                  <div className="text-sm font-semibold leading-tight">{item.name}</div>
-                  <div className="text-xs opacity-90 leading-tight">
-                    {item.role} · {item.country}
-                  </div>
-                </figcaption>
               </figure>
             ))}
           </div>

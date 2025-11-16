@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   },
   description:
     "Vom Auswahlprozess bis Visum und Arbeitsaufnahme – transparent, schnell und zuverlässig.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     title: "ConsultingUZ",
     description:

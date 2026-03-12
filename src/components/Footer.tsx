@@ -111,7 +111,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t py-4 text-center text-xs text-muted-foreground">
-        {t("footer_rights")}
+        {t("footer_rights").replace("{{year}}", new Date().getFullYear().toString())}
       </div>
     </footer>
   );

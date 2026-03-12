@@ -35,8 +35,8 @@ interface StatCardProps {
 function StatCard({ value, suffix, label, icon: Icon, isInView }: StatCardProps) {
   const n = useCountUp(value, isInView);
   return (
-    <div className="p-5 rounded-2xl bg-card shadow hover:shadow-lg transition border ring-1 ring-transparent hover:ring-primary/10 flex flex-col items-center gap-2">
-      <Icon className="text-primary" />
+    <div className="p-5 rounded-xl border flex flex-col items-center gap-2">
+      <Icon className="size-5 text-primary" />
       <div className="text-2xl font-bold text-primary tabular-nums">
         {n}
         {suffix ?? "+"}
@@ -53,8 +53,6 @@ export default function Stats() {
 
   const icons = [Award, Users, BriefcaseBusiness, ThumbsUp] as const;
 
-  // Map literal labels from data to translated strings without a default branch,
-  // so TypeScript doesn't narrow to never after exhaustiveness.
   const translateLabel = (lbl: (typeof stats)[number]["label"]): string => {
     switch (lbl) {
       case "Tajriba yillari":
@@ -69,21 +67,13 @@ export default function Stats() {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-12 border-y overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-0 dark:hidden"
-        aria-hidden
-        style={{
-          backgroundImage:
-            "radial-gradient(1200px 420px at 50% -15%, hsl(var(--primary)/0.14), transparent 65%)",
-        }}
-      />
+    <section ref={sectionRef} className="py-12 border-y">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2 className="text-2xl md:text-3xl font-bold">{t("stats_title")}</h2>
-          <p className="font-pt text-muted-foreground">{t("stats_desc")}</p>
+          <p className="text-sm text-muted-foreground">{t("stats_desc")}</p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((s, i) => (
             <StatCard
               key={s.label}

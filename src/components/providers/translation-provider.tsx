@@ -152,6 +152,17 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     step_onboard_title: "Ishga joylashuv",
     step_onboard_desc: "Borib joylashish va moslashuvga ko'mak.",
 
+    // Form validation
+    error_name: "Iltimos, ismingizni kiriting.",
+    error_email: "Iltimos, to'g'ri email kiriting.",
+    error_phone: "Iltimos, to'g'ri telefon raqam kiriting.",
+    error_message: "Xabar kamida 10 ta belgidan iborat bo'lishi kerak.",
+    form_success: "Xabaringiz muvaffaqiyatli yuborildi.",
+    form_error: "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
+    form_sending: "Yuborilmoqda...",
+    form_placeholder_employer: "Kadrlar bo'yicha ehtiyojlaringizni tavsiflang...",
+    form_placeholder_jobseeker: "Tajribangiz va maqsadlaringiz haqida yozing...",
+
     // Coming soon
     soon_generic_title: "Tez orada!",
     soon_page_in_progress: "Ushbu sahifa ishlab chiqilmoqda. Qo'shimcha ma'lumot uchun bog'laning.",
@@ -297,6 +308,17 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     step_visa_desc: "Visum, Flug und Umzugsplanung.",
     step_onboard_title: "Arbeitsaufnahme",
     step_onboard_desc: "Ankommen und Unterstützung bei der Einarbeitung.",
+
+    // Form validation
+    error_name: "Bitte geben Sie Ihren Namen ein.",
+    error_email: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    error_phone: "Bitte geben Sie eine gültige Telefonnummer ein.",
+    error_message: "Die Nachricht muss mindestens 10 Zeichen lang sein.",
+    form_success: "Ihre Nachricht wurde erfolgreich gesendet.",
+    form_error: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    form_sending: "Wird gesendet...",
+    form_placeholder_employer: "Beschreiben Sie Ihren Personalbedarf...",
+    form_placeholder_jobseeker: "Erzählen Sie uns von Ihrer Erfahrung und Ihren Zielen...",
 
     // Coming soon
     soon_generic_title: "Bald verfügbar!",

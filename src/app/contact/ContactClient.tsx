@@ -65,16 +65,16 @@ export default function ContactClient() {
   const validate = () => {
     const nextErrors: Record<string, string> = {};
     if (!formData.name || formData.name.trim().length < 2) {
-      nextErrors.name = "Please enter your name.";
+      nextErrors.name = t("error_name");
     }
     if (!formData.email || !/.+@+.+\..+/.test(formData.email)) {
-      nextErrors.email = "Please enter a valid email.";
+      nextErrors.email = t("error_email");
     }
     if (formData.phone && formData.phone.replace(/\D/g, "").length < 7) {
-      nextErrors.phone = "Please enter a valid phone.";
+      nextErrors.phone = t("error_phone");
     }
     if (!formData.message || formData.message.trim().length < 10) {
-      nextErrors.message = "Message should be at least 10 characters.";
+      nextErrors.message = t("error_message");
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -86,8 +86,12 @@ export default function ContactClient() {
     if (!validate()) return;
     setSubmitting(true);
     try {
-      // Placeholder submit logic; hook into API or Telegram later
-      await new Promise((res) => setTimeout(res, 900));
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, role }),
+      });
+      if (!res.ok) throw new Error("Failed");
       setSubmitted("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch {
@@ -220,7 +224,7 @@ export default function ContactClient() {
                     aria-live="polite"
                     className="rounded-lg border bg-green-50 text-green-800 px-4 py-3 text-sm"
                   >
-                    {t("form_submit")} ✓ Your message has been sent.
+                    {t("form_success")}
                   </div>
                 )}
                 {submitted === "error" && (
@@ -229,7 +233,7 @@ export default function ContactClient() {
                     aria-live="polite"
                     className="rounded-lg border bg-red-50 text-red-800 px-4 py-3 text-sm"
                   >
-                    Something went wrong. Please try again.
+                    {t("form_error")}
                   </div>
                 )}
                 <div className="grid gap-2">
@@ -293,8 +297,8 @@ export default function ContactClient() {
                     rows={5}
                     placeholder={
                       role === "employer"
-                        ? "Describe your hiring needs..."
-                        : "Tell us about your experience and goals..."
+                        ? t("form_placeholder_employer")
+                        : t("form_placeholder_jobseeker")
                     }
                     className="rounded-md border bg-background p-3 min-h-32"
                     value={formData.message}
@@ -316,7 +320,7 @@ export default function ContactClient() {
                   {submitting ? (
                     <>
                       <Loader2 className="size-4 animate-spin" />
-                      <span>Sending...</span>
+                      <span>{t("form_sending")}</span>
                     </>
                   ) : (
                     <>

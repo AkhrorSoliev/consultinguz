@@ -9,13 +9,14 @@ export default function CTASticky() {
   const { open } = useConsultation();
   const { t } = useI18n();
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
+    <div className="fixed bottom-4 right-4 z-50 md:hidden">
       <Button
         onClick={open}
-        className="rounded-2xl shadow-lg hover:shadow-md text-sm md:text-base"
+        size="icon"
+        className="rounded-full size-12 shadow-md"
         aria-label={t("cta_form_title")}
       >
-        <MessageSquareIcon className="mr-2" /> {t("cta_button")}
+        <MessageSquareIcon className="size-5" />
       </Button>
     </div>
   );

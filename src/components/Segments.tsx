@@ -16,14 +16,12 @@ import { useI18n } from "@/components/providers/translation-provider";
 
 function Feature({ icon: Icon, title, desc }: { icon: LucideIcon; title: string; desc: string }) {
   return (
-    <div className="p-5 rounded-2xl bg-card shadow transition hover:shadow-lg border ring-1 ring-transparent hover:ring-primary/10 hover:-translate-y-[2px]">
+    <div className="p-5 rounded-xl border transition hover:border-primary/30">
       <div className="flex items-center gap-3">
-        <div className="inline-flex items-center justify-center rounded-xl bg-primary/10 text-primary size-9">
-          <Icon className="size-4" />
-        </div>
+        <Icon className="size-4 text-primary" />
         <div className="font-semibold">{title}</div>
       </div>
-      <p className="font-pt text-base text-muted-foreground mt-3 leading-relaxed">{desc}</p>
+      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{desc}</p>
     </div>
   );
 }
@@ -79,7 +77,7 @@ export default function Segments() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
               {t("seg_employers_title")}
             </h2>
-            <p className="font-pt text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
+            <p className="text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
               {t("seg_employers_desc")}
             </p>
           </div>
@@ -107,7 +105,7 @@ export default function Segments() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
               {t("seg_jobseekers_title")}
             </h2>
-            <p className="font-pt text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
+            <p className="text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
               {t("seg_jobseekers_desc")}
             </p>
           </div>

@@ -1,7 +1,7 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import { useMemo } from "react";
+import Image from "next/image";
 import { useI18n } from "@/components/providers/translation-provider";
 
 type ResultItem = {
@@ -90,17 +90,16 @@ export default function ResultsMarquee() {
   const track = useMemo(() => [...items, ...items, ...items], [items]);
 
   return (
-    <section className="relative py-16 sm:py-20 border-y border-muted overflow-hidden bg-background">
+    <section className="relative py-16 sm:py-20 border-y overflow-hidden">
       <div className="px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
           {t("results_title")}
         </h2>
-        <p className="font-pt text-muted-foreground mt-2 mb-6 text-pretty max-w-prose mx-auto">
+        <p className="text-muted-foreground mt-2 mb-6 text-pretty max-w-prose mx-auto">
           {t("results_desc")}
         </p>
       </div>
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent dark:from-muted/10 pointer-events-none" />
         <div className="overflow-hidden" aria-label="Results scrolling marquee">
           <div
             className="flex w-max gap-6 md:gap-8 will-change-transform"
@@ -111,9 +110,9 @@ export default function ResultsMarquee() {
                 key={`${item.id}-${idx}`}
                 className="shrink-0 relative rounded-xl overflow-hidden border bg-card"
               >
-                <img
+                <Image
                   src={item.imageUrl}
-                  alt={`${item.name}`}
+                  alt={item.name}
                   width={320}
                   height={240}
                   loading="lazy"

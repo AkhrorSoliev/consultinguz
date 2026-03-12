@@ -18,7 +18,6 @@ export default function Footer() {
               alt="ConsultingUZ logo"
               width={36}
               height={36}
-              unoptimized
               className="dark:hidden"
             />
             <Image
@@ -26,7 +25,6 @@ export default function Footer() {
               alt="ConsultingUZ logo"
               width={36}
               height={36}
-              unoptimized
               className="hidden dark:inline"
             />
             <span className="ml-2 font-bold text-lg">consultinguz</span>

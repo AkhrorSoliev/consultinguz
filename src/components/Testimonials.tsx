@@ -1,16 +1,14 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
-// Use plain img to avoid remote config issues in production
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { testimonials as baseTestimonials } from "@/data";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
 
 export default function Testimonials() {
   const { t } = useI18n();
   const testimonials = useMemo(() => {
-    // Map static data to localized role/text while keeping names
     return baseTestimonials.map((it, i) => {
       const roleKey =
         it.role === "Ish beruvchi" ? "testimonial_role_employer" : "testimonial_role_jobseekers";
@@ -24,35 +22,26 @@ export default function Testimonials() {
     });
   }, [t]);
 
-  // Responsive settings
   const [slidesToShow, setSlidesToShow] = useState(3);
   useEffect(() => {
     const compute = () => {
       const w = window.innerWidth;
-      if (w <= 480) {
-        setSlidesToShow(1);
-      } else if (w <= 768) {
-        setSlidesToShow(2);
-      } else if (w <= 1024) {
-        setSlidesToShow(3);
-      } else {
-        // default
-        setSlidesToShow(4);
-      }
+      if (w <= 480) setSlidesToShow(1);
+      else if (w <= 768) setSlidesToShow(2);
+      else if (w <= 1024) setSlidesToShow(3);
+      else setSlidesToShow(4);
     };
     compute();
     window.addEventListener("resize", compute);
     return () => window.removeEventListener("resize", compute);
   }, []);
 
-  // Infinite one-by-one sliding track
   const total = testimonials.length;
   const ANIMATION_MS = 500;
   const track = useMemo(() => [...testimonials, ...testimonials, ...testimonials], [testimonials]);
-  const [index, setIndex] = useState(total); // start at middle copy
+  const [index, setIndex] = useState(total);
   const [disableTransition, setDisableTransition] = useState(false);
 
-  // Seamless loop correction after animation completes
   useEffect(() => {
     if (index >= total * 2) {
       const id = setTimeout(() => {
@@ -72,7 +61,6 @@ export default function Testimonials() {
     }
   }, [index, total]);
 
-  // Reset to center when data length changes
   useEffect(() => {
     setDisableTransition(true);
     setIndex(total);
@@ -80,12 +68,11 @@ export default function Testimonials() {
   }, [total]);
 
   const cardWidthPercent = 100 / slidesToShow;
-  const transform = `translateX(-${index * cardWidthPercent}%)`;
+  const transformStyle = `translateX(-${index * cardWidthPercent}%)`;
 
   const prev = () => setIndex((i) => i - 1);
   const next = () => setIndex((i) => i + 1);
 
-  // Auto-advance with pause on hover/focus (step by 1)
   const [isPaused, setIsPaused] = useState(false);
   useEffect(() => {
     if (isPaused) return;
@@ -95,7 +82,6 @@ export default function Testimonials() {
     return () => clearInterval(id);
   }, [isPaused]);
 
-  // Dots derived from current starting position within one cycle
   const lastStart = Math.max(0, total - slidesToShow);
   const normalizedStart = (((index - total) % total) + total) % total;
   const currentStart = Math.min(normalizedStart, lastStart);
@@ -113,10 +99,10 @@ export default function Testimonials() {
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
           {t("testimonials_title")}
         </h2>
+        <p className="text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
+          {t("testimonials_desc")}
+        </p>
       </div>
-      <p className="font-pt text-muted-foreground text-center -mt-4 mb-6 text-pretty max-w-prose mx-auto">
-        {t("testimonials_desc")}
-      </p>
       <div className="flex justify-center sm:justify-end mb-2">
         <div className="flex gap-2">
           <button
@@ -139,30 +125,32 @@ export default function Testimonials() {
         <div
           className="-mx-3 flex will-change-transform"
           style={{
-            transform,
+            transform: transformStyle,
             transition: disableTransition ? "none" : "transform 500ms ease",
           }}
         >
-          {track.map((t, i) => (
-            <div key={t.name + i} className="px-3" style={{ minWidth: `${cardWidthPercent}%` }}>
-              <figure className="p-6 rounded-2xl bg-card shadow-md border border-border/60 relative h-full">
-                <Quote className="absolute top-4 left-4 text-primary/40" />
-                <blockquote className="font-pt text-base sm:text-lg text-foreground/90 leading-relaxed mt-6">
-                  “{t.text}”
+          {track.map((item, i) => (
+            <div
+              key={item.name + i}
+              className="px-3"
+              style={{ minWidth: `${cardWidthPercent}%` }}
+            >
+              <figure className="flex flex-col justify-between rounded-xl border p-5 h-full">
+                <blockquote className="text-sm text-muted-foreground leading-relaxed">
+                  {"\u201C"}{item.text}{"\u201D"}
                 </blockquote>
-                <figcaption className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-                  <img
-                    src={`https://picsum.photos/seed/face-${t.name}-${i}/64/64`}
-                    alt={t.name}
+                <figcaption className="mt-4 flex items-center gap-3 text-sm text-muted-foreground">
+                  <Image
+                    src={`https://picsum.photos/seed/face-${item.name}-${i}/64/64`}
+                    alt={item.name}
                     width={40}
                     height={40}
-                    className="rounded-full h-10 w-10 object-cover"
+                    className="rounded-full size-10 object-cover"
                     loading="lazy"
-                    referrerPolicy="no-referrer"
                   />
                   <div>
-                    <div className="font-medium text-foreground">{t.name}</div>
-                    <div>{t.role}</div>
+                    <div className="font-medium text-foreground">{item.name}</div>
+                    <div>{item.role}</div>
                   </div>
                 </figcaption>
               </figure>

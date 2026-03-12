@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import * as React from "react";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -61,7 +62,6 @@ export function Navbar() {
             alt="ConsultingUZ logo"
             width={32}
             height={32}
-            unoptimized
             priority
             className="dark:hidden"
           />
@@ -70,7 +70,6 @@ export function Navbar() {
             alt="ConsultingUZ logo"
             width={32}
             height={32}
-            unoptimized
             priority
             className="hidden dark:inline"
           />
@@ -195,72 +194,25 @@ export function Navbar() {
 
 export default Navbar;
 
-type ThemeChoice = "light" | "dark" | "system";
-
 function ThemeToggle() {
   const [mounted, setMounted] = React.useState(false);
-  const [theme, setTheme] = React.useState<ThemeChoice>("system");
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
-  // Apply the theme to the <html> element
-  const applyTheme = React.useCallback((choice: ThemeChoice) => {
-    if (typeof window === "undefined") return;
-    const root = document.documentElement;
-    const systemPrefersDark =
-      window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    const shouldUseDark = choice === "dark" || (choice === "system" && systemPrefersDark);
-
-    root.classList.toggle("dark", shouldUseDark);
-    root.style.colorScheme = shouldUseDark ? "dark" : "light";
-  }, []);
-
-  // Initialize from localStorage / system
-  React.useEffect(() => {
-    setMounted(true);
-    const stored = (typeof window !== "undefined" &&
-      window.localStorage.getItem("theme")) as ThemeChoice | null;
-    const initial: ThemeChoice =
-      stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
-    setTheme(initial);
-    applyTheme(initial);
-
-    // Keep in sync with system preference when using system
-    const media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-    const handler = () => {
-      if (initial === "system") applyTheme("system");
-    };
-    media?.addEventListener?.("change", handler);
-    return () => media?.removeEventListener?.("change", handler);
-  }, [applyTheme]);
-
-  const handleChange = (value: ThemeChoice) => {
-    setTheme(value);
-    try {
-      window.localStorage.setItem("theme", value);
-    } catch {}
-    applyTheme(value);
-  };
+  React.useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
-
-  const isDarkNow =
-    theme === "dark" ||
-    (theme === "system" &&
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon" aria-label="Toggle theme">
-          {isDarkNow ? <Moon className="size-4" /> : <Sun className="size-4" />}
+          {resolvedTheme === "dark" ? <Moon className="size-4" /> : <Sun className="size-4" />}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         <DropdownMenuLabel>Mavzu</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={theme} onValueChange={(v) => handleChange(v as ThemeChoice)}>
+        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
           <DropdownMenuRadioItem value="light">
             <Sun className="size-4" /> Yorug&apos;
           </DropdownMenuRadioItem>

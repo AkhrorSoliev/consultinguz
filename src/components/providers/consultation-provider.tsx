@@ -34,10 +34,19 @@ export function ConsultationProvider({ children }: { children: React.ReactNode }
 
   const value = useMemo(() => ({ open, close }), [open, close]);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Placeholder submit — can be wired to an API or email service
-    console.log({ name, phone, role });
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, role }),
+      });
+    } catch {
+      // silently fail — user still sees modal close
+    }
+    setName("");
+    setPhone("");
     setIsOpen(false);
   }
 

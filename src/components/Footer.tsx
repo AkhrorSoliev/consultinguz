@@ -18,14 +18,6 @@ export default function Footer() {
               alt="ConsultingUZ logo"
               width={36}
               height={36}
-              className="dark:hidden"
-            />
-            <Image
-              src="/consultinguz-white.png"
-              alt="ConsultingUZ logo"
-              width={36}
-              height={36}
-              className="hidden dark:inline"
             />
             <span className="ml-2 font-bold text-lg">consultinguz</span>
           </div>

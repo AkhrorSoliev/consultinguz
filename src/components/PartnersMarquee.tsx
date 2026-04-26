@@ -17,7 +17,7 @@ export default function PartnersMarquee() {
   return (
     <section className="relative py-16 sm:py-20 border-y border-muted overflow-hidden bg-background">
       <div
-        className="pointer-events-none absolute inset-0 dark:hidden"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           backgroundImage:
@@ -30,7 +30,7 @@ export default function PartnersMarquee() {
         </h2>
       </div>
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent dark:from-muted/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent pointer-events-none" />
         <div
           ref={containerRef}
           className="overflow-hidden group"

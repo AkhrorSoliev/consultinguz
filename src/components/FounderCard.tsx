@@ -23,7 +23,7 @@ export default function FounderCard() {
           </p>
 
           <div className="mt-6 flex flex-col items-center md:items-end gap-1">
-            <div className="text-base font-semibold">Herr Orif Akhmadaliyev</div>
+            <div className="text-base font-semibold">Herr Orif Akhmadaliev</div>
             <div className="text-sm text-muted-foreground">{t("founder_role")}</div>
           </div>
         </div>

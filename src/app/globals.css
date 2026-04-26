@@ -1,12 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 /* global variables */
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-sans:
+    var(--font-source-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif:
+    "Google Sans Flex", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace;
@@ -84,40 +87,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
-  --background: #0b1220;
-  --foreground: #f8fafc;
-  --card: #111827;
-  --card-foreground: #f8fafc;
-  --popover: #0b1220;
-  --popover-foreground: #f8fafc;
-  --primary: #5ea1ff;
-  --primary-foreground: #0b1220;
-  --secondary: #111827;
-  --secondary-foreground: #f8fafc;
-  --muted: #0f172a;
-  --muted-foreground: #cbd5e1; /* brighter for better readability on dark backgrounds */
-  --accent: #0f172a;
-  --accent-foreground: #f8fafc;
-  --destructive: #ef4444;
-  --border: #1f2937;
-  --input: #1f2937;
-  --ring: #3b82f6;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -131,7 +100,11 @@
   h4,
   h5,
   h6 {
-    @apply font-sans font-bold tracking-tight text-balance;
+    @apply font-serif font-bold tracking-tight text-balance;
+  }
+  a,
+  a * {
+    font-family: var(--font-serif) !important;
   }
   /* Improve default focus styles for accessibility */
   :focus-visible {
@@ -176,10 +149,6 @@
 }
 
 @layer utilities {
-  /* Ensure muted text is readable in dark mode regardless of cascade */
-  .dark .text-muted-foreground {
-    color: var(--muted-foreground) !important;
-  }
   /* Readability helpers */
   .text-pretty {
     text-wrap: pretty;

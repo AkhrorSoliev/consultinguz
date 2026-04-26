@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Source_Serif_4 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Providers from "./providers";
@@ -7,8 +7,8 @@ import Navbar from "@/components/Navbar";
 import CTASticky from "@/components/CTASticky";
 import Footer from "@/components/Footer";
 
-export const inter = Inter({
-  variable: "--font-inter",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
   display: "swap",
 });
@@ -49,10 +49,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" suppressHydrationWarning>
+    <html lang="de">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,100..1000&display=swap"
+        />
+      </head>
       <body
-        suppressHydrationWarning
-        className={`${inter.variable} antialiased min-h-screen flex flex-col`}
+        className={`${sourceSerif.variable} antialiased min-h-screen flex flex-col`}
       >
         <a
           href="#main"

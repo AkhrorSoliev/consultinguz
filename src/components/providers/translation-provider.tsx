@@ -40,6 +40,10 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     contact_phone: "Telefon",
     contact_email: "Email",
     contact_address: "Manzil",
+    contact_hours_label: "Ish vaqti",
+    contact_hours_value: "Dushanba–Juma, 09:00 – 18:00 (CET)",
+    contact_follow: "Bizni kuzating",
+    contact_info_title: "Kontakt ma'lumotlari",
 
     // Contact form
     form_name: "Ism",
@@ -47,6 +51,9 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     form_phone: "Telefon",
     form_message: "Xabar",
     form_submit: "Yuborish",
+    form_role_label: "Murojaat sifati",
+    form_role_select: "— Tanlang —",
+    form_message_placeholder: "Xabaringizni yozing...",
 
     // Hero
     hero_pill: "Xalqaro kadr tanlovi",
@@ -133,8 +140,8 @@ const MESSAGES: Record<LanguageCode, Messages> = {
 
     // Founder
     founder_quote: `Biz kompaniyalarga to'liq "xavotirsiz" paketni taklif qilamiz — til va kasbiy tayyorgarlikdan tortib Germaniyaga kelgandan keyingi barqaror integratsiyagacha bo'lgan barcha bosqichlarni o'z ichiga olgan.`,
-    founder_role: "Kompaniya Direktori",
-    founder_alt: "Kompaniya direktori Orif Akhmadaliyev",
+    founder_role: "Asoschi va bosh direktor",
+    founder_alt: "Asoschi va bosh direktor Orif Akhmadaliev",
 
     // Process
     process_title: "Jarayon",
@@ -194,6 +201,10 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     contact_phone: "Telefon",
     contact_email: "E-Mail",
     contact_address: "Adresse",
+    contact_hours_label: "Geschäftszeiten",
+    contact_hours_value: "Montag–Freitag, 09:00 – 18:00 (CET)",
+    contact_follow: "Folgen Sie uns",
+    contact_info_title: "Kontaktinformationen",
 
     // Contact form
     form_name: "Name",
@@ -201,6 +212,9 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     form_phone: "Telefon",
     form_message: "Nachricht",
     form_submit: "Senden",
+    form_role_label: "Anliegen als",
+    form_role_select: "— Auswählen —",
+    form_message_placeholder: "Schreiben Sie uns Ihre Nachricht...",
 
     // Hero
     hero_pill: "Internationale Personalvermittlung",
@@ -246,7 +260,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     footer_about: "Über uns",
     footer_socials: "Soziale Netzwerke",
     footer_rights: "© {{year}} ConsultingUZ. Alle Rechte vorbehalten.",
-    cta_title: "Ihr verlässlicher Partner für internationale Fachkräfte",
+    cta_title: "Ihr verlässlicher Partner für internationale Fachkräfte.",
     cta_desc: "Lassen Sie uns Ihre Anforderungen besprechen – unverbindlich und konkret.",
     cta_button: "Kostenlos beraten lassen",
     cta_badge_compliance: "Compliance & Transparenz",
@@ -290,8 +304,8 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     // Founder
     founder_quote:
       "Wir bieten Unternehmen ein Rundum-sorglos-Paket – von der sprachlichen und fachlichen Vorbereitung bis zur nachhaltigen Integration nach der Ankunft in Deutschland.",
-    founder_role: "Geschäftsführer",
-    founder_alt: "Geschäftsführer Orif Akhmadaliyev",
+    founder_role: "Gründer und Geschäftsführer",
+    founder_alt: "Gründer und Geschäftsführer Orif Akhmadaliev",
 
     // Process
     process_title: "Prozess",

@@ -1,9 +1,9 @@
-import ComingSoon from "@/components/ComingSoon";
+import JobseekersSegment from "@/components/JobseekersSegment";
 
 export const metadata = {
   title: "Arbeitssuchende",
 };
 
 export default function Page() {
-  return <ComingSoon pageKey="nav_jobseekers" />;
+  return <JobseekersSegment />;
 }

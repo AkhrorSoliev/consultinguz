@@ -18,8 +18,8 @@ export default function ProcessHero({ chipTitles }: Props) {
           priority
           className="pointer-events-none object-cover"
         />
-        <div className="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/80 backdrop-blur-sm" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-slate-900/30 to-slate-900/60 dark:from-primary/30 dark:via-slate-900/60 dark:to-slate-950" />
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-slate-900/30 to-slate-900/60" />
       </div>
       <div className="relative max-w-7xl mx-auto w-full px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
         <motion.div

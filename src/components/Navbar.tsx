@@ -4,16 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuLink,
-} from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,7 +15,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Globe, Laptop, Moon, Sun, Menu, Briefcase, Info, ShieldCheck, Phone } from "lucide-react";
+import {
+  Globe,
+  Menu,
+  Phone,
+  Target,
+  Users,
+  Handshake,
+  Workflow,
+} from "lucide-react";
 import {
   Sheet,
   SheetTrigger,
@@ -34,7 +33,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useI18n } from "@/components/providers/translation-provider";
-import pkg from "../../package.json";
 
 const linkBase =
   "px-3 py-2 rounded-md text-sm font-medium focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none";
@@ -42,15 +40,45 @@ const linkBase =
 export function Navbar() {
   const pathname = usePathname();
   const { t, lang, setLang } = useI18n();
-  const appVersion = pkg.version as string;
 
   const isActive = (href: string) => pathname === href || pathname?.startsWith(href + "/");
 
+  const mainLinks: Array<{ href: string; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+    { href: "/about/mission", label: t("nav_mission"), icon: Target },
+    { href: "/about/team", label: t("nav_team"), icon: Users },
+    { href: "/services/partners", label: t("nav_partners"), icon: Handshake },
+    { href: "/services/process", label: t("nav_process"), icon: Workflow },
+    { href: "/contact", label: t("nav_contact"), icon: Phone },
+  ];
+
   return (
     <header
-      className="sticky top-0 z-50 backdrop-blur bg-background/80 supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 border-b"
+      className="sticky top-0 z-50 backdrop-blur bg-background/80 supports-[backdrop-filter]:bg-background/60 border-b"
       role="banner"
     >
+      <div className="hidden md:block border-b border-border/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center gap-4 text-xs">
+          <Link
+            href="/services/employers"
+            className={cn(
+              "rounded-md px-2 py-1 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors",
+              isActive("/services/employers") && "text-foreground bg-primary/10"
+            )}
+          >
+            {t("nav_employers")}
+          </Link>
+          <Link
+            href="/services/jobseekers"
+            className={cn(
+              "rounded-md px-2 py-1 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors",
+              isActive("/services/jobseekers") && "text-foreground bg-primary/10"
+            )}
+          >
+            {t("nav_jobseekers")}
+          </Link>
+        </div>
+      </div>
+
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
         aria-label="Primary"
@@ -63,124 +91,28 @@ export function Navbar() {
             width={32}
             height={32}
             priority
-            className="dark:hidden"
-          />
-          <Image
-            src="/consultinguz-white.png"
-            alt="ConsultingUZ logo"
-            width={32}
-            height={32}
-            priority
-            className="hidden dark:inline"
           />
           <span className="ml-2 font-bold text-lg">consultinguz</span>
-          <span
-            className="ml-2 rounded border border-border/60 px-1.5 py-0.5 text-[10px] leading-none text-muted-foreground"
-            aria-label={`Version ${appVersion}`}
-          >
-            v{appVersion}
-          </span>
         </Link>
 
-        <div className="hidden md:block">
-          <NavigationMenu viewport={false}>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent inline-flex items-center gap-2">
-                  <Info className="size-4" />
-                  <span>{t("nav_about")}</span>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-2">
-                  <ul className="grid gap-1 p-1 w-64">
-                    {[
-                      ["/about/mission", t("nav_mission")],
-                      ["/about/team", t("nav_team")],
-                    ].map(([href, label]) => (
-                      <li key={href}>
-                        <NavigationMenuLink asChild active={isActive(href)}>
-                          <Link
-                            href={href}
-                            className={cn(
-                              "block rounded-md px-3 py-2 hover:bg-primary/10",
-                              isActive(href) && "bg-primary/10"
-                            )}
-                          >
-                            {label}
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent inline-flex items-center gap-2">
-                  <Briefcase className="size-4" />
-                  <span>{t("nav_services")}</span>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-2">
-                  <ul className="grid gap-1 p-1 w-64">
-                    {[
-                      ["/services/employers", t("nav_employers")],
-                      ["/services/jobseekers", t("nav_jobseekers")],
-                      ["/services/partners", t("nav_partners")],
-                      ["/services/process", t("nav_process")],
-                    ].map(([href, label]) => (
-                      <li key={href}>
-                        <NavigationMenuLink asChild active={isActive(href)}>
-                          <Link
-                            href={href}
-                            className={cn(
-                              "block rounded-md px-3 py-2 hover:bg-primary/10",
-                              isActive(href) && "bg-primary/10"
-                            )}
-                          >
-                            {label}
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    href="/compliance"
-                    className={cn(
-                      linkBase,
-                      "flex flex-row items-center gap-2 whitespace-nowrap",
-                      isActive("/compliance") && "bg-primary/10"
-                    )}
-                  >
-                    <ShieldCheck className="size-4" />
-                    <span>{t("nav_compliance")}</span>
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    href="/contact"
-                    className={cn(
-                      linkBase,
-                      "flex flex-row items-center gap-2 whitespace-nowrap",
-                      isActive("/contact") && "bg-primary/10"
-                    )}
-                  >
-                    <Phone className="size-4" />
-                    <span>{t("nav_contact")}</span>
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+        <div className="hidden md:flex items-center gap-1">
+          {mainLinks.map(({ href, label, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                linkBase,
+                "inline-flex items-center gap-2 whitespace-nowrap hover:bg-primary/10",
+                isActive(href) && "bg-primary/10"
+              )}
+            >
+              <Icon className="size-4" />
+              <span>{label}</span>
+            </Link>
+          ))}
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <ThemeToggle />
           <LanguageToggle forcedLang={lang} onChangeLang={setLang} />
         </div>
 
@@ -193,40 +125,6 @@ export function Navbar() {
 }
 
 export default Navbar;
-
-function ThemeToggle() {
-  const [mounted, setMounted] = React.useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
-
-  React.useEffect(() => setMounted(true), []);
-
-  if (!mounted) return null;
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" aria-label="Toggle theme">
-          {resolvedTheme === "dark" ? <Moon className="size-4" /> : <Sun className="size-4" />}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-40">
-        <DropdownMenuLabel>Mavzu</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-          <DropdownMenuRadioItem value="light">
-            <Sun className="size-4" /> Yorug&apos;
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="dark">
-            <Moon className="size-4" /> Qorong&apos;i
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="system">
-            <Laptop className="size-4" /> Tizim
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
 
 type LanguageCode = "uz" | "de";
 
@@ -296,6 +194,16 @@ function MobileMenu({
   lang: LanguageCode;
   onChangeLang: (v: LanguageCode) => void;
 }) {
+  const items: Array<{ href: string; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+    { href: "/services/employers", label: t("nav_employers"), icon: Users },
+    { href: "/services/jobseekers", label: t("nav_jobseekers"), icon: Users },
+    { href: "/about/mission", label: t("nav_mission"), icon: Target },
+    { href: "/about/team", label: t("nav_team"), icon: Users },
+    { href: "/services/partners", label: t("nav_partners"), icon: Handshake },
+    { href: "/services/process", label: t("nav_process"), icon: Workflow },
+    { href: "/contact", label: t("nav_contact"), icon: Phone },
+  ];
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -308,93 +216,28 @@ function MobileMenu({
           <SheetTitle className="text-base font-medium">Menu</SheetTitle>
         </SheetHeader>
 
-        <nav className="p-2 space-y-4" aria-label="Mobile Primary">
-          <div className="space-y-1">
-            <div className="px-3 text-xs font-medium text-muted-foreground uppercase inline-flex items-center gap-2">
-              <Briefcase className="size-3.5" />
-              <span>{t("nav_services")}</span>
-            </div>
-            <ul className="px-1">
-              {[
-                ["/services/employers", t("nav_employers")],
-                ["/services/jobseekers", t("nav_jobseekers")],
-                ["/services/partners", t("nav_partners")],
-                ["/services/process", t("nav_process")],
-              ].map(([href, label]) => (
-                <li key={href}>
-                  <SheetClose asChild>
-                    <Link
-                      href={href}
-                      className={cn(
-                        "block rounded-md px-3 py-2 text-sm hover:bg-primary/10",
-                        isActive(href) && "bg-primary/10"
-                      )}
-                    >
-                      {label}
-                    </Link>
-                  </SheetClose>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="space-y-1">
-            <div className="px-3 text-xs font-medium text-muted-foreground uppercase inline-flex items-center gap-2">
-              <Info className="size-3.5" />
-              <span>{t("nav_about")}</span>
-            </div>
-            <ul className="px-1">
-              {[
-                ["/about/mission", t("nav_mission")],
-                ["/about/team", t("nav_team")],
-              ].map(([href, label]) => (
-                <li key={href}>
-                  <SheetClose asChild>
-                    <Link
-                      href={href}
-                      className={cn(
-                        "block rounded-md px-3 py-2 text-sm hover:bg-primary/10",
-                        isActive(href) && "bg-primary/10"
-                      )}
-                    >
-                      {label}
-                    </Link>
-                  </SheetClose>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="px-1 space-y-2">
-            <SheetClose asChild>
-              <Link
-                href="/compliance"
-                className={cn(
-                  "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm hover:bg-primary/10",
-                  isActive("/compliance") && "bg-primary/10"
-                )}
-              >
-                <ShieldCheck className="size-4" />
-                <span>{t("nav_compliance")}</span>
-              </Link>
-            </SheetClose>
-            <SheetClose asChild>
-              <Link
-                href="/contact"
-                className={cn(
-                  "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm hover:bg-primary/10",
-                  isActive("/contact") && "bg-primary/10"
-                )}
-              >
-                <Phone className="size-4" />
-                <span>{t("nav_contact")}</span>
-              </Link>
-            </SheetClose>
-          </div>
+        <nav className="p-2" aria-label="Mobile Primary">
+          <ul className="px-1 space-y-1">
+            {items.map(({ href, label, icon: Icon }) => (
+              <li key={href}>
+                <SheetClose asChild>
+                  <Link
+                    href={href}
+                    className={cn(
+                      "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm hover:bg-primary/10",
+                      isActive(href) && "bg-primary/10"
+                    )}
+                  >
+                    <Icon className="size-4" />
+                    <span>{label}</span>
+                  </Link>
+                </SheetClose>
+              </li>
+            ))}
+          </ul>
         </nav>
 
         <div className="mt-auto p-4 border-t flex items-center gap-2">
-          <ThemeToggle />
           <LanguageToggle forcedLang={lang} onChangeLang={onChangeLang} />
         </div>
       </SheetContent>

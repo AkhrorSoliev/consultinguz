@@ -1,0 +1,81 @@
+"use client";
+
+import {
+  Briefcase,
+  FileCheck2,
+  UsersRound,
+  ArrowRight,
+  type LucideIcon,
+} from "lucide-react";
+import Link from "next/link";
+import { useReveal } from "@/lib/reveal";
+import { useI18n } from "@/components/providers/translation-provider";
+
+function Feature({ icon: Icon, title, desc }: { icon: LucideIcon; title: string; desc: string }) {
+  return (
+    <div className="p-5 rounded-xl border transition hover:border-primary/30">
+      <div className="flex items-center gap-3">
+        <Icon className="size-4 text-primary" />
+        <div className="font-semibold">{title}</div>
+      </div>
+      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{desc}</p>
+    </div>
+  );
+}
+
+export default function EmployersSegment({ showCta = true }: { showCta?: boolean }) {
+  const { t } = useI18n();
+  const emp = [
+    {
+      icon: Briefcase,
+      title: t("emp_hire"),
+      desc: t("emp_hire_desc"),
+    },
+    {
+      icon: FileCheck2,
+      title: t("emp_docs"),
+      desc: t("emp_docs_desc"),
+    },
+    {
+      icon: UsersRound,
+      title: t("emp_extra"),
+      desc: t("emp_extra_desc"),
+    },
+  ];
+
+  const empReveal = useReveal<HTMLDivElement>();
+
+  return (
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div
+        ref={empReveal.ref}
+        className={`transition duration-300 ${empReveal.revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+      >
+        <div className="mb-8 sm:mb-10 text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-balance">
+            {t("seg_employers_title")}
+          </h2>
+          <p className="text-muted-foreground mt-2 text-pretty max-w-prose mx-auto">
+            {t("seg_employers_desc")}
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {emp.map((f) => (
+            <Feature key={f.title} icon={f.icon} title={f.title} desc={f.desc} />
+          ))}
+        </div>
+        {showCta && (
+          <div className="mt-6 text-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm hover:bg-primary/10 transition"
+            >
+              {t("seg_details")}
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

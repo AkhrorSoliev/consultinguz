@@ -18,7 +18,7 @@ export default function Hero() {
           className="absolute inset-0 bg-center bg-cover"
           style={{ backgroundImage: "url('/hero-bg.jpg')" }}
         />
-        <div className="absolute inset-0 bg-background/80 dark:bg-background/85" />
+        <div className="absolute inset-0 bg-background/80" />
       </div>
 
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-24 md:pb-28">
@@ -28,13 +28,6 @@ export default function Hero() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
           className="max-w-2xl mx-auto space-y-5 text-center"
         >
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
-            className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground mx-auto"
-          >
-            {t("hero_pill")}
-          </motion.div>
-
           <motion.h1
             variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-primary"

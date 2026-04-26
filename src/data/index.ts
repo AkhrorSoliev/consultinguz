@@ -1,7 +1,7 @@
 export const stats = [
-  { label: "Tajriba yillari", value: 7 },
-  { label: "Hamkorlar", value: 120 },
-  { label: "Joylashtirilganlar", value: 3500 },
+  { label: "Tajriba yillari", value: 5 },
+  { label: "Hamkorlar", value: 30 },
+  { label: "Joylashtirilganlar", value: 800 },
   { label: "Qoniqish darajasi", value: 96, suffix: "%" },
 ] as const;
 

@@ -1,83 +1,69 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import type React from "react";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
-  Briefcase,
-  Send,
-  UserRound,
-  ArrowLeftRight,
   Phone,
   Mail,
   MapPin,
+  Clock,
+  Send,
   Loader2,
+  LinkedinIcon,
+  InstagramIcon,
+  YoutubeIcon,
+  SendIcon,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { useI18n } from "@/components/providers/translation-provider";
 
-type ContactRole = "employer" | "jobseeker";
+type ContactRole = "" | "employer" | "jobseeker";
+
+const OFFICE_PHONE = "+49 176 238 97 113";
+const OFFICE_EMAIL = "orif.ahmadaliyev@consultinguz.de";
+const OFFICE_ADDRESS = "Alemannenweg 6, 72488 Sigmaringen, Deutschland";
+
+const SOCIALS: Array<{
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+}> = [
+  { href: "https://www.linkedin.com/in/consulting-uz-39b908297/", label: "LinkedIn", icon: LinkedinIcon },
+  { href: "https://t.me/Consulting_UZB", label: "Telegram", icon: SendIcon },
+  { href: "https://www.instagram.com/consulting__uz/", label: "Instagram", icon: InstagramIcon },
+  { href: "http://www.youtube.com/@consultingUz1", label: "YouTube", icon: YoutubeIcon },
+];
+
+const initialForm = { name: "", email: "", phone: "", message: "" };
 
 export default function ContactClient() {
   const { t } = useI18n();
-  const [role, setRole] = useState<ContactRole | null>(null);
+  const [role, setRole] = useState<ContactRole>("");
+  const [formData, setFormData] = useState(initialForm);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState<null | "success" | "error">(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Load role from localStorage on mount
-  useEffect(() => {
-    const stored =
-      typeof window !== "undefined" ? window.localStorage.getItem("contact_role") : null;
-    if (stored === "employer" || stored === "jobseeker") {
-      setRole(stored);
-    }
-  }, []);
-
-  const handleSelect = (next: ContactRole) => {
-    setRole(next);
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("contact_role", next);
-    }
-  };
-
-  const handleClearRole = () => {
-    setRole(null);
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("contact_role");
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const validate = () => {
-    const nextErrors: Record<string, string> = {};
-    if (!formData.name || formData.name.trim().length < 2) {
-      nextErrors.name = t("error_name");
-    }
-    if (!formData.email || !/.+@+.+\..+/.test(formData.email)) {
-      nextErrors.email = t("error_email");
-    }
-    if (formData.phone && formData.phone.replace(/\D/g, "").length < 7) {
-      nextErrors.phone = t("error_phone");
-    }
-    if (!formData.message || formData.message.trim().length < 10) {
-      nextErrors.message = t("error_message");
-    }
-    setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    const next: Record<string, string> = {};
+    if (!formData.name || formData.name.trim().length < 2) next.name = t("error_name");
+    if (!formData.email || !/.+@.+\..+/.test(formData.email)) next.email = t("error_email");
+    if (formData.phone && formData.phone.replace(/\D/g, "").length < 7) next.phone = t("error_phone");
+    if (!formData.message || formData.message.trim().length < 10) next.message = t("error_message");
+    setErrors(next);
+    return Object.keys(next).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,11 +75,12 @@ export default function ContactClient() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, role }),
+        body: JSON.stringify({ ...formData, role: role || undefined }),
       });
       if (!res.ok) throw new Error("Failed");
       setSubmitted("success");
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData(initialForm);
+      setRole("");
     } catch {
       setSubmitted("error");
     } finally {
@@ -101,239 +88,226 @@ export default function ContactClient() {
     }
   };
 
-  const contactCardTitle = useMemo(() => {
-    if (role === "employer") return t("contact_card_employer_title");
-    if (role === "jobseeker") return t("contact_card_jobseeker_title");
-    return "";
-  }, [role, t]);
-
   return (
-    <>
-      <Section>
-        <SectionHeader title={t("nav_contact")} subtitle={t("cta_desc")} />
-        {role ? (
-          <div className="flex justify-end">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClearRole}
-              className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 hover:bg-accent/60"
-            >
-              <ArrowLeftRight className="size-4" />
-              <span>{t("contact_role_change")}</span>
-            </Button>
+    <Section>
+      <SectionHeader title={t("nav_contact")} subtitle={t("cta_desc")} />
+
+      <div className="grid gap-8 lg:grid-cols-5 lg:gap-10">
+        <aside className="lg:col-span-2 space-y-6">
+          <div className="rounded-2xl border bg-card p-6 shadow-sm">
+            <h3 className="text-lg font-semibold mb-4">{t("contact_info_title")}</h3>
+            <ul className="space-y-4">
+              <InfoRow icon={Phone} label={t("contact_phone")}>
+                <a href={`tel:${OFFICE_PHONE.replace(/\s/g, "")}`} className="hover:underline">
+                  {OFFICE_PHONE}
+                </a>
+              </InfoRow>
+              <InfoRow icon={Mail} label={t("contact_email")}>
+                <a href={`mailto:${OFFICE_EMAIL}`} className="hover:underline break-all">
+                  {OFFICE_EMAIL}
+                </a>
+              </InfoRow>
+              <InfoRow icon={MapPin} label={t("contact_address")}>
+                <span>{OFFICE_ADDRESS}</span>
+              </InfoRow>
+              <InfoRow icon={Clock} label={t("contact_hours_label")}>
+                <span>{t("contact_hours_value")}</span>
+              </InfoRow>
+            </ul>
           </div>
-        ) : (
-          <div className="mt-6">
-            <div className="rounded-2xl border bg-card p-6 shadow-lg">
-              <div className="text-center space-y-1 mb-4">
-                <div className="text-xl font-bold">{t("contact_role_title")}</div>
-                <div className="text-sm text-muted-foreground">{t("contact_role_desc")}</div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <button
-                  type="button"
-                  onClick={() => handleSelect("employer")}
-                  className="group w-full rounded-xl border bg-background hover:bg-accent/50 transition shadow-sm p-5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring flex flex-col items-center justify-center"
+
+          <div className="rounded-2xl border bg-card p-6 shadow-sm">
+            <h3 className="text-sm font-semibold mb-3">{t("contact_follow")}</h3>
+            <div className="flex gap-3 text-muted-foreground">
+              {SOCIALS.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md border p-2 hover:text-foreground hover:bg-primary/10 transition-colors"
                 >
-                  <div className="flex flex-col items-center text-center gap-3">
-                    <div className="rounded-lg bg-primary/10 text-primary p-3">
-                      <Briefcase className="size-6" />
-                    </div>
-                    <div>
-                      <div className="font-semibold">{t("contact_role_employer")}</div>
-                      <div className="text-sm text-muted-foreground">&nbsp;</div>
-                    </div>
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelect("jobseeker")}
-                  className="group w-full rounded-xl border bg-background hover:bg-accent/50 transition shadow-sm p-5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring flex flex-col items-center justify-center"
-                >
-                  <div className="flex flex-col items-center text-center gap-3">
-                    <div className="rounded-lg bg-primary/10 text-primary p-3">
-                      <UserRound className="size-6" />
-                    </div>
-                    <div>
-                      <div className="font-semibold">{t("contact_role_jobseeker")}</div>
-                      <div className="text-sm text-muted-foreground">&nbsp;</div>
-                    </div>
-                  </div>
-                </button>
-              </div>
+                  <Icon className="size-5" />
+                </Link>
+              ))}
             </div>
           </div>
-        )}
-      </Section>
-      <Section>
-        {role && (
-          <div className="grid gap-8 md:grid-cols-2">
-            <section className="space-y-4">
-              <div className="rounded-2xl p-6 bg-card shadow-lg border">
-                <div className="text-lg font-semibold mb-4">{contactCardTitle}</div>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <span className="rounded-md bg-primary/10 text-primary p-2">
-                      <Phone className="size-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm text-muted-foreground">{t("contact_phone")}</div>
-                      <div className="font-medium">
-                        {role === "employer" ? "+49 176 238 97 113" : "+998 (90) 000-00-00"}
-                      </div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="rounded-md bg-primary/10 text-primary p-2">
-                      <Mail className="size-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm text-muted-foreground">{t("contact_email")}</div>
-                      <div className="font-medium">
-                        {role === "employer"
-                          ? "orif.ahmadaliyev@consultinguz.de"
-                          : "job@consultinguz.uz"}
-                      </div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="rounded-md bg-primary/10 text-primary p-2">
-                      <MapPin className="size-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm text-muted-foreground">{t("contact_address")}</div>
-                      <div className="font-medium">
-                        {role === "employer"
-                          ? "Alemannenweg 6, 72488 Sigmaringen, Deutschland"
-                          : "Toshkent, O'\u2019zbekiston"}
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+        </aside>
+
+        <section className="lg:col-span-3">
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="rounded-2xl border bg-card p-6 sm:p-8 shadow-sm space-y-5"
+          >
+            {submitted === "success" && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+              >
+                {t("form_success")}
               </div>
-              <div className="rounded-2xl p-4 bg-muted/30 border">
-                <div className="text-sm text-muted-foreground">{t("cta_desc")}</div>
+            )}
+            {submitted === "error" && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+              >
+                {t("form_error")}
               </div>
-            </section>
-            <section>
-              <form className="space-y-5" onSubmit={handleSubmit} noValidate>
-                {submitted === "success" && (
-                  <div
-                    role="status"
-                    aria-live="polite"
-                    className="rounded-lg border bg-green-50 text-green-800 px-4 py-3 text-sm"
-                  >
-                    {t("form_success")}
-                  </div>
-                )}
-                {submitted === "error" && (
-                  <div
-                    role="status"
-                    aria-live="polite"
-                    className="rounded-lg border bg-red-50 text-red-800 px-4 py-3 text-sm"
-                  >
-                    {t("form_error")}
-                  </div>
-                )}
-                <div className="grid gap-2">
-                  <Label htmlFor="name">{t("form_name")}</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    placeholder="John Doe"
-                    value={formData.name}
-                    onChange={handleChange}
-                    aria-invalid={!!errors.name}
-                    aria-describedby={errors.name ? "name-error" : undefined}
-                  />
-                  {errors.name ? (
-                    <p id="name-error" className="text-xs text-destructive">
-                      {errors.name}
-                    </p>
-                  ) : null}
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">{t("form_email")}</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                    aria-invalid={!!errors.email}
-                    aria-describedby={errors.email ? "email-error" : undefined}
-                  />
-                  {errors.email ? (
-                    <p id="email-error" className="text-xs text-destructive">
-                      {errors.email}
-                    </p>
-                  ) : null}
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="phone">{t("form_phone")}</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder={role === "employer" ? "+49 30 123456" : "+998 90 000 00 00"}
-                    value={formData.phone}
-                    onChange={handleChange}
-                    aria-invalid={!!errors.phone}
-                    aria-describedby={errors.phone ? "phone-error" : undefined}
-                  />
-                  {errors.phone ? (
-                    <p id="phone-error" className="text-xs text-destructive">
-                      {errors.phone}
-                    </p>
-                  ) : null}
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="message">{t("form_message")}</Label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    placeholder={
-                      role === "employer"
-                        ? t("form_placeholder_employer")
-                        : t("form_placeholder_jobseeker")
-                    }
-                    className="rounded-md border bg-background p-3 min-h-32"
-                    value={formData.message}
-                    onChange={handleChange}
-                    aria-invalid={!!errors.message}
-                    aria-describedby={errors.message ? "message-error" : undefined}
-                  />
-                  {errors.message ? (
-                    <p id="message-error" className="text-xs text-destructive">
-                      {errors.message}
-                    </p>
-                  ) : null}
-                </div>
-                <Button
-                  type="submit"
-                  disabled={submitting}
-                  className="inline-flex items-center gap-2"
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" />
-                      <span>{t("form_sending")}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="size-4" />
-                      <span>{t("form_submit")}</span>
-                    </>
-                  )}
-                </Button>
-              </form>
-            </section>
-          </div>
-        )}
-      </Section>
-    </>
+            )}
+
+            <div className="grid gap-2">
+              <Label htmlFor="role">{t("form_role_label")}</Label>
+              <select
+                id="role"
+                name="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value as ContactRole)}
+                className="border-input h-9 w-full rounded-md border bg-background px-3 py-1 text-base shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] md:text-sm"
+              >
+                <option value="">{t("form_role_select")}</option>
+                <option value="employer">{t("contact_role_employer")}</option>
+                <option value="jobseeker">{t("contact_role_jobseeker")}</option>
+              </select>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field
+                id="name"
+                label={t("form_name")}
+                value={formData.name}
+                onChange={handleChange}
+                error={errors.name}
+                placeholder="John Doe"
+                autoComplete="name"
+              />
+              <Field
+                id="email"
+                label={t("form_email")}
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+                placeholder="name@example.com"
+                autoComplete="email"
+              />
+            </div>
+
+            <Field
+              id="phone"
+              label={t("form_phone")}
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              error={errors.phone}
+              placeholder="+49 30 123456"
+              autoComplete="tel"
+            />
+
+            <div className="grid gap-2">
+              <Label htmlFor="message">{t("form_message")}</Label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                value={formData.message}
+                onChange={handleChange}
+                placeholder={t("form_message_placeholder")}
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "message-error" : undefined}
+                className="border-input min-h-32 w-full rounded-md border bg-background p-3 text-base shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] md:text-sm"
+              />
+              {errors.message ? (
+                <p id="message-error" className="text-xs text-destructive">
+                  {errors.message}
+                </p>
+              ) : null}
+            </div>
+
+            <Button type="submit" disabled={submitting} className="w-full sm:w-auto">
+              {submitting ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                  <span>{t("form_sending")}</span>
+                </>
+              ) : (
+                <>
+                  <Send className="size-4" />
+                  <span>{t("form_submit")}</span>
+                </>
+              )}
+            </Button>
+          </form>
+        </section>
+      </div>
+    </Section>
+  );
+}
+
+function InfoRow({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="flex items-start gap-3">
+      <span className="mt-0.5 rounded-md bg-primary/10 p-2 text-primary">
+        <Icon className="size-5" />
+      </span>
+      <div className="min-w-0">
+        <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
+        <div className="font-medium">{children}</div>
+      </div>
+    </li>
+  );
+}
+
+function Field({
+  id,
+  label,
+  type = "text",
+  value,
+  onChange,
+  error,
+  placeholder,
+  autoComplete,
+}: {
+  id: string;
+  label: string;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  placeholder?: string;
+  autoComplete?: string;
+}) {
+  return (
+    <div className="grid gap-2">
+      <Label htmlFor={id}>{label}</Label>
+      <Input
+        id={id}
+        name={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+      />
+      {error ? (
+        <p id={`${id}-error`} className="text-xs text-destructive">
+          {error}
+        </p>
+      ) : null}
+    </div>
   );
 }

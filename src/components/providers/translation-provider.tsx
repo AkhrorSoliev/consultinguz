@@ -28,6 +28,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_team: "Jamoa",
     nav_compliance: "Muvofiqlik",
     nav_contact: "Aloqa",
+    nav_privacy: "Maxfiylik siyosati",
 
     // Contact modal
     contact_role_title: "Siz kim sifatida murojaat qilyapsiz?",
@@ -44,6 +45,12 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     contact_hours_value: "Dushanba–Juma, 09:00 – 18:00 (CET)",
     contact_follow: "Bizni kuzating",
     contact_info_title: "Kontakt ma'lumotlari",
+    contact_hero_title: "Keling, suhbat boshlaymiz",
+    contact_hero_subtitle:
+      "Savollaringiz, takliflaringiz yoki hamkorlik bo'yicha — biz har doim eshitishga tayyormiz. 2–3 ish kuni ichida javob beramiz.",
+    contact_hero_pill_response: "24 soat ichida javob",
+    contact_hero_pill_languages: "DE va UZ tillarida",
+    contact_hero_pill_personal: "Shaxsiy maslahatchi",
 
     // Contact form
     form_name: "Ism",
@@ -175,6 +182,22 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     soon_page_in_progress: "Ushbu sahifa ishlab chiqilmoqda. Qo'shimcha ma'lumot uchun bog'laning.",
     soon_section_in_progress: "Bu bo'lim ishlab chiqilmoqda. Qo'shimcha ma'lumot uchun bog'laning.",
     back_home: "Asosiy sahifaga qaytish",
+
+    // Partners hero
+    partners_hero_title: "Ishonchli hamkorlar bilan birga",
+    partners_hero_subtitle:
+      "Germaniyaning yetakchi kompaniyalari bilan ko'p yillik hamkorlik — shaffof, ishonchli va uzoq muddatli munosabatlar.",
+    partners_pill_companies: "30+ kompaniya",
+    partners_pill_verified: "Tasdiqlangan",
+    partners_pill_languages: "DE va UZ",
+
+    // Team hero
+    team_hero_title: "Yoningizdagi mutaxassislar",
+    team_hero_subtitle:
+      "Tajribali, ko'p tilli va xalqaro jamoa — har bir bosqichda shaxsiy yondashuv bilan sizga hamroh bo'lamiz.",
+    team_pill_multilingual: "Ko'p tilli",
+    team_pill_personal: "Shaxsiy yondashuv",
+    team_pill_experienced: "Tajribali",
   },
   de: {
     // Navbar
@@ -189,6 +212,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_team: "Team",
     nav_compliance: "Compliance",
     nav_contact: "Kontakt",
+    nav_privacy: "Datenschutz",
 
     // Contact modal
     contact_role_title: "Wie möchten Sie uns kontaktieren?",
@@ -205,6 +229,12 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     contact_hours_value: "Montag–Freitag, 09:00 – 18:00 (CET)",
     contact_follow: "Folgen Sie uns",
     contact_info_title: "Kontaktinformationen",
+    contact_hero_title: "Lassen Sie uns sprechen",
+    contact_hero_subtitle:
+      "Ob Fragen, Anregungen oder Kooperation – wir sind für Sie da. Wir antworten innerhalb von 2–3 Werktagen.",
+    contact_hero_pill_response: "Antwort in 24 Std.",
+    contact_hero_pill_languages: "DE & UZ",
+    contact_hero_pill_personal: "Persönlich beraten",
 
     // Contact form
     form_name: "Name",
@@ -341,6 +371,22 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     soon_section_in_progress:
       "Dieser Bereich wird derzeit entwickelt. Für weitere Informationen kontaktieren Sie uns bitte.",
     back_home: "Zur Startseite",
+
+    // Partners hero
+    partners_hero_title: "Gemeinsam mit vertrauensvollen Partnern",
+    partners_hero_subtitle:
+      "Langjährige Kooperationen mit führenden Unternehmen in Deutschland — transparent, verlässlich und auf Dauer angelegt.",
+    partners_pill_companies: "30+ Unternehmen",
+    partners_pill_verified: "Verifiziert",
+    partners_pill_languages: "DE & UZ",
+
+    // Team hero
+    team_hero_title: "Experten an Ihrer Seite",
+    team_hero_subtitle:
+      "Ein erfahrenes, mehrsprachiges und international aufgestelltes Team — wir begleiten Sie persönlich in jedem Schritt.",
+    team_pill_multilingual: "Mehrsprachig",
+    team_pill_personal: "Persönlich",
+    team_pill_experienced: "Erfahren",
   },
 };
 
@@ -352,6 +398,12 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
       window.localStorage.getItem("lang")) as LanguageCode | null;
     if (stored === "uz" || stored === "de") setLang(stored);
   }, []);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang;
+    }
+  }, [lang]);
 
   const value = useMemo<I18nContextValue>(() => {
     const messages = MESSAGES[lang];

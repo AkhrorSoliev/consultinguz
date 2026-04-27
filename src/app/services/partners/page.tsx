@@ -1,9 +1,9 @@
-import ComingSoon from "@/components/ComingSoon";
+import PartnersClient from "./PartnersClient";
 
 export const metadata = {
   title: "Partner",
 };
 
 export default function Page() {
-  return <ComingSoon pageKey="nav_partners" />;
+  return <PartnersClient />;
 }

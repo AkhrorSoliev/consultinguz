@@ -65,6 +65,11 @@ export function SectionHeader({
         className
       )}
     >
+      {eyebrow ? (
+        <div className="text-xs uppercase tracking-wide font-semibold text-primary">
+          {eyebrow}
+        </div>
+      ) : null}
       <h2
         className={cn(
           "text-balance text-2xl sm:text-3xl lg:text-4xl font-bold mt-2",

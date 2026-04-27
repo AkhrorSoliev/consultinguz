@@ -56,8 +56,8 @@ export function Navbar() {
       className="sticky top-0 z-50 backdrop-blur bg-background/80 supports-[backdrop-filter]:bg-background/60 border-b"
       role="banner"
     >
-      <div className="hidden md:block border-b border-border/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center gap-4 text-xs">
+      <div className="border-b border-border/60">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-9 flex items-center gap-2 sm:gap-4 text-xs overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <Link
             href="/services/employers"
             className={cn(

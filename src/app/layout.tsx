@@ -14,6 +14,13 @@ const sourceSerif = Source_Serif_4({
 });
 
 
+const OG_IMAGE = {
+  url: "/consulting-logo.png",
+  width: 512,
+  height: 512,
+  alt: "ConsultingUZ",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultinguz.vercel.app"),
   title: {
@@ -22,6 +29,9 @@ export const metadata: Metadata = {
   },
   description:
     "Vom Auswahlprozess bis Visum und Arbeitsaufnahme – transparent, schnell und zuverlässig.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -34,12 +44,15 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "ConsultingUZ",
+    locale: "de_DE",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ConsultingUZ",
     description:
       "Vom Auswahlprozess bis Visum und Arbeitsaufnahme – transparent, schnell und zuverlässig.",
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -53,6 +66,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- "Google Sans Flex" is not in the public Google Fonts catalog, so next/font/google cannot load it */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,100..1000&display=swap"

@@ -8,19 +8,19 @@ import { useI18n } from "@/components/providers/translation-provider";
 export default function Footer() {
   const { t } = useI18n();
   return (
-    <footer className="border-t mt-16">
+    <footer className="border-t mt-16 bg-muted/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-8 sm:grid-cols-2 md:grid-cols-4">
         <div className="space-y-2">
-          <div className="inline-flex items-center">
+          <Link href="/" className="inline-flex items-center" aria-label="ConsultingUZ">
             <span className="sr-only">ConsultingUZ</span>
             <Image
               src="/consulting-logo.png"
               alt="ConsultingUZ logo"
-              width={36}
-              height={36}
+              width={32}
+              height={32}
             />
             <span className="ml-2 font-bold text-lg">consultinguz</span>
-          </div>
+          </Link>
           <p className="text-sm text-muted-foreground">{t("footer_tagline")}</p>
         </div>
         <div>
@@ -66,43 +66,56 @@ export default function Footer() {
                 {t("nav_compliance")}
               </Link>
             </li>
+            <li>
+              <Link className="hover:underline" href="/datenschutz">
+                {t("nav_privacy")}
+              </Link>
+            </li>
           </ul>
         </div>
         <div>
           <div className="font-semibold mb-3">{t("footer_socials")}</div>
           <div className="flex gap-3 text-muted-foreground">
-            <Link
+            <a
               aria-label="LinkedIn"
               href="https://www.linkedin.com/in/consulting-uz-39b908297/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground"
             >
               <LinkedinIcon />
-            </Link>
-            <Link
+            </a>
+            <a
               aria-label="Telegram"
               href="https://t.me/Consulting_UZB"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground"
             >
               <SendIcon />
-            </Link>
-            <Link
+            </a>
+            <a
               aria-label="Instagram"
-              href="https://www.instagram.com/consulting__uz/profilecard/?igsh=dW5tbjczbGU2ampp"
+              href="https://www.instagram.com/consulting__uz/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground"
             >
               <InstagramIcon />
-            </Link>
-            <Link
-              aria-label="Instagram"
-              href="http://www.youtube.com/@consultingUz1"
+            </a>
+            <a
+              aria-label="YouTube"
+              href="https://www.youtube.com/@consultingUz1"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground"
             >
               <YoutubeIcon />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
-      <div className="border-t py-4 text-center text-xs text-muted-foreground">
+      <div className="border-t bg-muted/60 py-4 text-center text-xs text-muted-foreground">
         {t("footer_rights").replace("{{year}}", new Date().getFullYear().toString())}
       </div>
     </footer>

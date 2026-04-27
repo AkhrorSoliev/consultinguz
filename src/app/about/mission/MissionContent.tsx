@@ -52,20 +52,26 @@ const revealAnimation = {
   transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
 };
 
-const heroHighlights: BilingualCopy[] = [
+type HeroHighlight = BilingualCopy & { icon: LucideIcon };
+
+const heroHighlights: HeroHighlight[] = [
   {
+    icon: Users,
     de: "Rekrutierung",
     uz: "Rekruting",
   },
   {
+    icon: GraduationCap,
     de: "Sprach- & Fachtraining",
     uz: "Til va kasbiy tayyorgarlik",
   },
   {
+    icon: Plane,
     de: "Visa & Anerkennung",
     uz: "Viza va tan olish",
   },
   {
+    icon: Home,
     de: "Integration",
     uz: "Integratsiya",
   },
@@ -286,8 +292,8 @@ export default function MissionContent() {
             priority
             className="pointer-events-none object-cover"
           />
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-slate-900/60 to-slate-950" />
+          <div className="absolute inset-0 bg-slate-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-slate-950/55" />
         </div>
         <div className="relative max-w-7xl mx-auto w-full px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
           <motion.div
@@ -299,9 +305,6 @@ export default function MissionContent() {
               ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
             }}
           >
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/90">
-              {lang === "de" ? "Mission" : "Missiya"}
-            </span>
             <div className="space-y-4">
               <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-b from-white to-white/70 bg-clip-text text-transparent drop-shadow-sm">
                 {lang === "de"
@@ -315,23 +318,27 @@ export default function MissionContent() {
               </p>
             </div>
             <motion.div className="flex flex-wrap gap-2">
-              {heroHighlights.map((copy) => (
-                <motion.span
-                  key={copy.de}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
-                  initial={{ opacity: 0, scale: 0.9, y: 12 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                  }}
-                >
-                  <span className="font-semibold text-white">
-                    {lang === "de" ? copy.de : copy.uz}
-                  </span>
-                </motion.span>
-              ))}
+              {heroHighlights.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <motion.span
+                    key={item.de}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
+                    initial={{ opacity: 0, scale: 0.9, y: 12 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                    }}
+                  >
+                    <Icon className="size-4" />
+                    <span className="font-semibold text-white">
+                      {lang === "de" ? item.de : item.uz}
+                    </span>
+                  </motion.span>
+                );
+              })}
             </motion.div>
           </motion.div>
         </div>
@@ -340,7 +347,6 @@ export default function MissionContent() {
       <Section>
         <SectionHeader
           align="left"
-          eyebrow={lang === "de" ? "Mission" : "Missiya"}
           title={lang === "de" ? "Was uns antreibt" : "Missiyamiz"}
           subtitle={
             lang === "de" ? (

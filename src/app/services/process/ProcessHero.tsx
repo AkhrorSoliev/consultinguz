@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { FileText, UserRoundCheck, Briefcase, Plane } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+const CHIP_ICONS: LucideIcon[] = [FileText, UserRoundCheck, Briefcase, Plane];
 
 type Props = {
   chipTitles: string[];
@@ -18,8 +22,8 @@ export default function ProcessHero({ chipTitles }: Props) {
           priority
           className="pointer-events-none object-cover"
         />
-        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-slate-900/30 to-slate-900/60" />
+        <div className="absolute inset-0 bg-slate-950/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-slate-950/55" />
       </div>
       <div className="relative max-w-7xl mx-auto w-full px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
         <motion.div
@@ -38,18 +42,22 @@ export default function ProcessHero({ chipTitles }: Props) {
             Transparent, schnell und verständlich – in fünf klaren Schritten zum Erfolg.
           </p>
           <motion.div className="flex flex-wrap justify-center gap-2">
-            {chipTitles.slice(0, 3).map((title) => (
-              <motion.span
-                key={title}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
-                initial={{ opacity: 0, scale: 0.9, y: 12 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-              >
-                <span className="font-semibold text-white">{title}</span>
-              </motion.span>
-            ))}
+            {chipTitles.slice(0, 3).map((title, i) => {
+              const Icon = CHIP_ICONS[i] ?? FileText;
+              return (
+                <motion.span
+                  key={title}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
+                  initial={{ opacity: 0, scale: 0.9, y: 12 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+                >
+                  <Icon className="size-4" />
+                  <span className="font-semibold text-white">{title}</span>
+                </motion.span>
+              );
+            })}
           </motion.div>
         </motion.div>
       </div>

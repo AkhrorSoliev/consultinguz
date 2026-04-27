@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "skills": {
+    "framer-motion-animator": {
+      "source": "patricio0312rev/skills",
+      "sourceType": "github",
+      "computedHash": "d0137ba04049bf8926bc80f6a5e2b82d94b5633b6445a85dbfb26ab4f1b104c6"
+    },
+    "nextjs-app-router-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "d2f0a7065f7418fdb3ae88559f1f1426f40c26f2b5aebcd394797418d4bb3b04"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "f1fed683b76913d26fbf1aa1e008e6932f7771701fc3a79925b042236aa4681a"
+    },
+    "shadcn": {
+      "source": "shadcn/ui",
+      "sourceType": "github",
+      "computedHash": "2bc6cf38ec7b4a5778a43fabb3e87642c9897ad45e9eb42438b57fd2def6cca8"
+    },
+    "tailwind-v4-shadcn": {
+      "source": "secondsky/claude-skills",
+      "sourceType": "github",
+      "computedHash": "dedaff41ff3331cfe9734eee4203a1e85c6a013eec46df83d9c00e3d36e421f9"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "3a3be8c925f96ac4e1280db28a01677e7ca5197f3792de2bbf35ab3bb324b6dd"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "ca7b0c0c6e5f2750043f7f0cd72d16ac4e2abc48f9b5500d047a4b77a2506212"
+    }
+  }
+}

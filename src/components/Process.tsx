@@ -2,8 +2,17 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FileText, UserRoundCheck, Briefcase, FileCheck2, Plane, Home } from "lucide-react";
+import {
+  FileText,
+  UserRoundCheck,
+  Briefcase,
+  FileCheck2,
+  Plane,
+  Home,
+  CheckCircle2,
+} from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
+import { Section, SectionHeader } from "@/components/ui/section";
 import { type ComponentType } from "react";
 
 function buildSteps(t: (k: string) => string, lang: string) {
@@ -84,112 +93,93 @@ type StepItem = {
   icon: ComponentType<{ className?: string }>;
 };
 function VerticalProcessList({ steps, lang }: { steps: readonly StepItem[]; lang: string }) {
+  const stepLabel = lang === "de" ? "Schritt" : "Bosqich";
+  const sectionTitle = lang === "de" ? "So gehen wir vor" : "Qanday ishlaymiz";
+  const sectionSubtitle =
+    lang === "de"
+      ? "Vom ersten Gespräch bis zur Integration – jede Phase ist klar definiert und persönlich begleitet."
+      : "Birinchi suhbatdan integratsiyagacha — har bir bosqich aniq va shaxsiy hamrohlik bilan.";
+  const completionText =
+    lang === "de"
+      ? "In jeder Phase persönlich an Ihrer Seite – transparent, planbar und verbindlich."
+      : "Har bir bosqichda yoningizdamiz — shaffof, rejali va ishonchli.";
+
   return (
-    <section className="relative">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <Section>
+      <SectionHeader
+        align="left"
+        eyebrow={lang === "de" ? "Prozess" : "Jarayon"}
+        title={sectionTitle}
+        subtitle={sectionSubtitle}
+      />
+      <div className="mx-auto max-w-3xl">
         <ol className="relative">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent"
+          />
           {steps.map((s, i) => {
             const Icon = s.icon;
-            const isLast = i === steps.length - 1;
-            const gid = `v-connector-${i}`;
-            const rightCurve = i % 2 === 0;
-            const path = rightCurve
-              ? "M310 0 C 540 10 540 110 310 120"
-              : "M310 0 C 80 10 80 110 310 120";
-            const tiltClass =
-              i % 2 === 0
-                ? "md:-rotate-[0.8deg] md:-translate-x-1"
-                : "md:rotate-[0.8deg] md:translate-x-1";
+            const num = String(i + 1).padStart(2, "0");
             return (
-              <li key={s.title} className="relative">
-                <motion.div
-                  className={`relative mx-auto w-full rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow transition-transform ${tiltClass}`}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                  }}
+              <motion.li
+                key={s.title}
+                className="relative pl-16 pb-8 last:pb-0"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{
+                  duration: 0.5,
+                  delay: Math.min(i * 0.06, 0.3),
+                  ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-0 z-10 inline-flex size-12 items-center justify-center rounded-full bg-background ring-1 ring-border shadow-sm"
                 >
-                  <div className="flex items-start gap-3">
-                    <div className="inline-flex items-center justify-center rounded-full bg-primary/10 text-primary size-10 shrink-0">
-                      <Icon className="size-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-xs font-semibold tracking-[0.25em] uppercase text-muted-foreground">
-                        {(lang === "de" ? "Schritt" : "Bosqich") + " " + (i + 1)}
-                      </div>
-                      <h3 className="mt-1 text-lg sm:text-xl font-bold text-foreground">
-                        {s.title}
-                      </h3>
-                      <p className="mt-1 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        {s.desc}
-                      </p>
-                    </div>
+                  <span className="inline-flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Icon className="size-5" />
+                  </span>
+                </span>
+                <article className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-sm transition-colors hover:border-primary/40">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-muted-foreground">
+                      {stepLabel} {num}
+                    </span>
+                    <span className="text-3xl font-bold leading-none text-muted-foreground/15 tabular-nums">
+                      {num}
+                    </span>
                   </div>
-                </motion.div>
-                {!isLast && (
-                  <motion.svg
-                    aria-hidden
-                    className="my-2 mx-auto block h-[120px] w-[620px] max-w-full"
-                    viewBox="0 0 620 120"
-                    preserveAspectRatio="none"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                  >
-                    <defs>
-                      <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="rgba(59,130,246,0.25)" />
-                        <stop offset="50%" stopColor="rgba(59,130,246,0.7)" />
-                        <stop offset="100%" stopColor="rgba(59,130,246,0.25)" />
-                      </linearGradient>
-                      <filter id={`${gid}-glow`} x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="10" result="blur" />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                      </filter>
-                    </defs>
-                    <motion.path
-                      d={path}
-                      fill="none"
-                      stroke={`url(#${gid})`}
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      transition={{ duration: 0.9, ease: "easeInOut" }}
-                      filter={`url(#${gid}-glow)`}
-                    />
-                    <motion.circle
-                      cx="310"
-                      cy="0"
-                      r="4"
-                      fill={`url(#${gid})`}
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      transition={{ delay: 0.15, duration: 0.3 }}
-                    />
-                    <motion.circle
-                      cx="310"
-                      cy="120"
-                      r="4"
-                      fill={`url(#${gid})`}
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      transition={{ delay: 0.6, duration: 0.3 }}
-                    />
-                  </motion.svg>
-                )}
-              </li>
+                  <h3 className="mt-2 text-lg sm:text-xl font-bold text-foreground">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    {s.desc}
+                  </p>
+                </article>
+              </motion.li>
             );
           })}
         </ol>
+
+        <motion.div
+          className="mt-6 ml-16 flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-4"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{
+            duration: 0.5,
+            ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+          }}
+        >
+          <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+            <CheckCircle2 className="size-5" />
+          </span>
+          <p className="text-sm text-foreground/90 leading-relaxed">{completionText}</p>
+        </motion.div>
       </div>
-    </section>
+    </Section>
   );
 }
 
@@ -208,8 +198,8 @@ export default function Process() {
             priority
             className="pointer-events-none object-cover"
           />
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-slate-900/30 to-slate-900/60" />
+          <div className="absolute inset-0 bg-slate-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-slate-950/55" />
         </div>
         <div className="relative max-w-7xl mx-auto w-full px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
           <motion.div
@@ -221,9 +211,6 @@ export default function Process() {
               ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
             }}
           >
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/90">
-              {lang === "de" ? "Prozess" : "Jarayon"}
-            </span>
             <div className="space-y-4">
               <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-b from-white to-white/70 bg-clip-text text-transparent drop-shadow-sm">
                 {t("process_title")}
@@ -233,21 +220,25 @@ export default function Process() {
               </p>
             </div>
             <motion.div className="flex flex-wrap gap-2">
-              {steps.slice(0, 4).map((s) => (
-                <motion.span
-                  key={s.title}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
-                  initial={{ opacity: 0, scale: 0.9, y: 12 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                  }}
-                >
-                  <span className="font-semibold text-white">{s.title}</span>
-                </motion.span>
-              ))}
+              {steps.slice(0, 4).map((s) => {
+                const Icon = s.icon;
+                return (
+                  <motion.span
+                    key={s.title}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
+                    initial={{ opacity: 0, scale: 0.9, y: 12 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                    }}
+                  >
+                    <Icon className="size-4" />
+                    <span className="font-semibold text-white">{s.title}</span>
+                  </motion.span>
+                );
+              })}
             </motion.div>
           </motion.div>
           <motion.div

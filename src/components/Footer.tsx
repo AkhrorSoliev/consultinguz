@@ -71,6 +71,11 @@ export default function Footer() {
                 {t("nav_privacy")}
               </Link>
             </li>
+            <li>
+              <Link className="hover:underline" href="/impressum">
+                {t("nav_imprint")}
+              </Link>
+            </li>
           </ul>
         </div>
         <div>

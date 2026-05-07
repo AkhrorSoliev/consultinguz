@@ -95,6 +95,7 @@ public/
 | `/services/process`    | Live          | `ProcessHero` + `Process`                    |
 | `/compliance`          | Live (UZ)     | Static copy in `app/compliance/page.tsx`     |
 | `/datenschutz`         | Live (DE+UZ)  | `DatenschutzClient` (DSGVO notice)           |
+| `/impressum`           | Live (DE+UZ)  | `ImpressumClient` (§ 5 TMG imprint)          |
 | `/contact`             | Live          | `ContactClient` — form + office info         |
 
 When adding a new route, also add it to [src/app/sitemap.ts](src/app/sitemap.ts).

@@ -29,6 +29,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_compliance: "Muvofiqlik",
     nav_contact: "Aloqa",
     nav_privacy: "Maxfiylik siyosati",
+    nav_imprint: "Kompaniya ma'lumotlari",
 
     // Contact modal
     contact_role_title: "Siz kim sifatida murojaat qilyapsiz?",
@@ -213,6 +214,7 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_compliance: "Compliance",
     nav_contact: "Kontakt",
     nav_privacy: "Datenschutz",
+    nav_imprint: "Impressum",
 
     // Contact modal
     contact_role_title: "Wie möchten Sie uns kontaktieren?",

@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/process",
     "/compliance",
     "/datenschutz",
+    "/impressum",
     "/about/mission",
     "/about/team",
     "/contact",

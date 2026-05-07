@@ -18,7 +18,8 @@ import {
 import { Section } from "@/components/ui/section";
 import { useI18n } from "@/components/providers/translation-provider";
 
-const COMPANY_NAME = "consultinguz.uz";
+const COMPANY_OWNER = "Orif Akhmadaliev";
+const COMPANY_NAME = "ConsultingUZ";
 const COMPANY_ADDRESS = "Alemannenweg 6, 72488 Sigmaringen, Deutschland";
 const COMPANY_EMAIL = "orif.ahmadaliyev@consultinguz.de";
 const COMPANY_PHONE = "+49 176 238 97 113";
@@ -115,7 +116,10 @@ export default function DatenschutzClient() {
               <p className="text-sm text-muted-foreground mb-5">{c.responsible_intro}</p>
               <ul className="space-y-4">
                 <InfoRow icon={Building2} label={c.label_company}>
-                  <span>{COMPANY_NAME}</span>
+                  <span className="flex flex-col">
+                    <span>{COMPANY_OWNER}</span>
+                    <span>{COMPANY_NAME}</span>
+                  </span>
                 </InfoRow>
                 <InfoRow icon={MapPin} label={c.label_address}>
                   <span>{COMPANY_ADDRESS}</span>

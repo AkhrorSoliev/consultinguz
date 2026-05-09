@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { useI18n } from "@/components/providers/translation-provider";
+import { useCookieConsent } from "@/components/providers/cookie-consent-provider";
 
 const COMPANY_OWNER = "Orif Akhmadaliev";
 const COMPANY_NAME = "ConsultingUZ";
@@ -30,18 +31,33 @@ const PILLS_TRANSITION = { duration: 0.6, delay: 0.2, ease: EASE_OUT_EXPO };
 
 export default function DatenschutzClient() {
   const { lang } = useI18n();
+  const { openModal: openCookieModal } = useCookieConsent();
   const c = lang === "de" ? DE : UZ;
 
   const topics: Array<{
     icon: React.ComponentType<{ className?: string }>;
     title: string;
     body: string;
+    action?: React.ReactNode;
   }> = [
       { icon: ShieldCheck, title: c.intro_title, body: c.intro_body },
       { icon: ServerCog, title: c.collection_title, body: c.collection_body },
       { icon: MessageSquare, title: c.contact_form_title, body: c.contact_form_body },
       { icon: UserRoundCheck, title: c.rights_title, body: c.rights_body },
-      { icon: Cookie, title: c.cookies_title, body: c.cookies_body },
+      {
+        icon: Cookie,
+        title: c.cookies_title,
+        body: c.cookies_body,
+        action: (
+          <button
+            type="button"
+            onClick={openCookieModal}
+            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
+          >
+            {c.cookies_adjust}
+          </button>
+        ),
+      },
     ];
 
   const heroPills: Array<{
@@ -142,7 +158,7 @@ export default function DatenschutzClient() {
           </aside>
 
           <div className="lg:col-span-3 space-y-4">
-            {topics.map(({ icon: Icon, title, body }) => (
+            {topics.map(({ icon: Icon, title, body, action }) => (
               <article
                 key={title}
                 className="rounded-2xl border bg-card p-6 shadow-sm transition-colors hover:border-primary/30"
@@ -154,6 +170,7 @@ export default function DatenschutzClient() {
                   <div className="min-w-0">
                     <h3 className="text-base font-semibold mb-2">{title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
+                    {action}
                   </div>
                 </div>
               </article>
@@ -219,6 +236,7 @@ const DE = {
   cookies_title: "Cookies",
   cookies_body:
     "Unsere Website verwendet Cookies — kleine Textdateien, die Ihr Browser auf Ihrem Endgerät speichert. Sie helfen uns, unser Angebot nutzerfreundlicher und effektiver zu gestalten. Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden.",
+  cookies_adjust: "Cookie-Einstellungen anpassen",
   disclaimer:
     "Diese Informationen dienen lediglich der allgemeinen Orientierung und ersetzen keine rechtliche Beratung.",
 };
@@ -253,6 +271,7 @@ const UZ = {
   cookies_title: "Cookie fayllari",
   cookies_body:
     "Saytimizda cookie fayllaridan foydalaniladi — bular brauzeringiz qurilmangizda saqlaydigan kichik matn fayllaridir. Cookie fayllar xizmatimizni qulayroq va samaraliroq qilishga yordam beradi. Brauzeringizni cookie o'rnatilganidan xabar beradigan tarzda sozlashingiz mumkin.",
+  cookies_adjust: "Cookie sozlamalarini o'zgartirish",
   disclaimer:
     "Ushbu ma'lumotlar faqat tanishish maqsadida taqdim etilgan va huquqiy maslahat o'rnini bosmaydi.",
 };

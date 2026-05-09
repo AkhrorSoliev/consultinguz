@@ -10,7 +10,6 @@ import {
   Mail,
   Phone,
   UserRoundCheck,
-  FileBadge,
   ShieldCheck,
 } from "lucide-react";
 import { Section } from "@/components/ui/section";
@@ -60,23 +59,6 @@ export default function ImpressumClient() {
           </p>
           <p className="text-sm font-medium mt-1">{COMPANY_OWNER}</p>
         </>
-      ),
-    },
-    {
-      icon: FileBadge,
-      title: c.content_responsible_title,
-      body: (
-        <address className="not-italic text-sm font-medium leading-relaxed">
-          {COMPANY_OWNER}
-          <br />
-          {COMPANY_NAME}
-          <br />
-          {COMPANY_STREET}
-          <br />
-          {COMPANY_CITY}
-          <br />
-          {COMPANY_COUNTRY}
-        </address>
       ),
     },
   ];
@@ -233,8 +215,6 @@ const DE = {
   label_phone: "Telefon",
   vertreten_title: "Vertreten durch",
   vertreten_label: "Vertretungsberechtigter Geschäftsführer:",
-  content_responsible_title:
-    "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
   disclaimer:
     "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.",
 };
@@ -252,8 +232,6 @@ const UZ = {
   label_phone: "Telefon",
   vertreten_title: "Vakil shaxs",
   vertreten_label: "Vakolatli direktor:",
-  content_responsible_title:
-    "§ 55-modda 2-band RStV bo'yicha kontent uchun mas'ul",
   disclaimer:
     "Tashqi havolalar mazmuni biz tomonidan diqqat bilan tekshirilgan bo'lsa-da, ularning keyingi o'zgarishi uchun javobgarlik faqat tegishli sayt egalariga yuklanadi.",
 };

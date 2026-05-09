@@ -4,9 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { InstagramIcon, LinkedinIcon, SendIcon, YoutubeIcon } from "lucide-react";
 import { useI18n } from "@/components/providers/translation-provider";
+import { useCookieConsent } from "@/components/providers/cookie-consent-provider";
 
 export default function Footer() {
   const { t } = useI18n();
+  const { openModal: openCookieModal } = useCookieConsent();
   return (
     <footer className="border-t mt-16 bg-muted/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-8 sm:grid-cols-2 md:grid-cols-4">
@@ -75,6 +77,15 @@ export default function Footer() {
               <Link className="hover:underline" href="/impressum">
                 {t("nav_imprint")}
               </Link>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={openCookieModal}
+                className="hover:underline text-left font-sans"
+              >
+                {t("nav_cookie_settings")}
+              </button>
             </li>
           </ul>
         </div>

@@ -30,6 +30,23 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_contact: "Aloqa",
     nav_privacy: "Maxfiylik siyosati",
     nav_imprint: "Kompaniya ma'lumotlari",
+    nav_cookie_settings: "Cookie sozlamalari",
+
+    // Cookie consent modal
+    cookie_modal_title: "Maxfiylik sozlamalari",
+    cookie_modal_subtitle:
+      "Bu vosita saytdagi turli teglar / trekerlar / tahlil vositalarini tanlash va o'chirishga yordam beradi.",
+    cookie_essential_label: "Zaruriy",
+    cookie_essential_desc:
+      "Saytning asosiy funksiyalari ishlashi uchun zarur texnologiyalar.",
+    cookie_functional_label: "Funksional",
+    cookie_functional_desc:
+      "Sayt foydalanilishini tahlil qilib, samaradorlikni o'lchash va yaxshilash uchun ishlatiladi.",
+    cookie_marketing_label: "Marketing",
+    cookie_marketing_desc:
+      "Sizning qiziqishlaringizga mos reklamalarni ko'rsatish uchun reklama beruvchilar tomonidan ishlatiladi.",
+    cookie_accept_all: "Hammasini qabul qilish",
+    cookie_save_settings: "Sozlamalarni saqlash",
 
     // Contact modal
     contact_role_title: "Siz kim sifatida murojaat qilyapsiz?",
@@ -215,6 +232,23 @@ const MESSAGES: Record<LanguageCode, Messages> = {
     nav_contact: "Kontakt",
     nav_privacy: "Datenschutz",
     nav_imprint: "Impressum",
+    nav_cookie_settings: "Cookie-Einstellungen",
+
+    // Cookie consent modal
+    cookie_modal_title: "Privatsphäre-Einstellungen",
+    cookie_modal_subtitle:
+      "Dieses Tool hilft Ihnen, verschiedene Tags / Tracker / Analyse-Tools auf dieser Webseite auszuwählen und zu deaktivieren.",
+    cookie_essential_label: "Essenziell",
+    cookie_essential_desc:
+      "Diese Technologien sind erforderlich, um die Kernfunktionalität der Website zu aktivieren.",
+    cookie_functional_label: "Funktionell",
+    cookie_functional_desc:
+      "Diese Technologien ermöglichen es uns, die Nutzung der Website zu analysieren, um die Leistung zu messen und zu verbessern.",
+    cookie_marketing_label: "Marketing",
+    cookie_marketing_desc:
+      "Diese Technologien werden von Werbetreibenden verwendet, um Anzeigen zu schalten, die für Ihre Interessen relevant sind.",
+    cookie_accept_all: "Alles akzeptieren",
+    cookie_save_settings: "Einstellungen speichern",
 
     // Contact modal
     contact_role_title: "Wie möchten Sie uns kontaktieren?",

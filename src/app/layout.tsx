@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Source_Serif_4 } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/Navbar";
 import CTASticky from "@/components/CTASticky";
 import Footer from "@/components/Footer";
+import AnalyticsGate from "@/components/AnalyticsGate";
 
 const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
@@ -88,6 +88,7 @@ export default function RootLayout({
           </main>
           <CTASticky />
           <Footer />
+          <AnalyticsGate />
         </Providers>
         <script
           type="application/ld+json"
@@ -133,7 +134,6 @@ export default function RootLayout({
             }),
           }}
         />
-        <Analytics />
       </body>
     </html>
   );

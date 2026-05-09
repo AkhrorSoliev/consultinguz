@@ -29,7 +29,8 @@ the full pipeline: candidate selection → interview → documentation → visa 
 | UI primitives    | **shadcn/ui** (style: `new-york`, baseColor: `neutral`) on Radix UI    |
 | Icons            | **lucide-react**                                                       |
 | Animation        | **framer-motion** v12                                                  |
-| Analytics        | **@vercel/analytics**                                                  |
+| Analytics        | **@vercel/analytics** (gated behind cookie consent via `AnalyticsGate`) |
+| Cookie consent   | Custom provider + shadcn Dialog/Checkbox (`cookie-consent-provider`)   |
 | Lint / Format    | ESLint (`next/core-web-vitals` + `next/typescript` + `prettier`), Prettier |
 | Path alias       | `@/*` → `./src/*`                                                      |
 
@@ -64,8 +65,10 @@ src/
 ├── components/
 │   ├── ui/                       # shadcn/ui primitives (button, card, dialog, sheet, input, …)
 │   ├── providers/
-│   │   ├── translation-provider.tsx   # i18n context, MESSAGES dict, useI18n()
-│   │   └── consultation-provider.tsx  # Global "Bepul maslahat" modal, useConsultation()
+│   │   ├── translation-provider.tsx     # i18n context, MESSAGES dict, useI18n()
+│   │   ├── consultation-provider.tsx    # Global "Bepul maslahat" modal, useConsultation()
+│   │   └── cookie-consent-provider.tsx  # GDPR/TTDSG consent modal, useCookieConsent()
+│   ├── AnalyticsGate.tsx           # Renders <Analytics /> only when consent.functional === true
 │   ├── Navbar.tsx, Footer.tsx, CTASticky.tsx
 │   ├── Hero.tsx, Stats.tsx, FounderCard.tsx, ProcessSection.tsx, Process.tsx
 │   ├── ResultsMarquee.tsx, PartnersMarquee.tsx
@@ -259,6 +262,12 @@ npx skills update                # upgrade
   `ContactClient` constants. Keep them in sync.
 - **`.next/` and `node_modules/`** are ignored — never commit build output. `package-lock.json` is
   ignored by Prettier but committed by Git.
+- **Gate every new tracker behind cookie consent.** Do not add `<Script>` tags or third-party
+  analytics directly in `layout.tsx`. Follow the [`AnalyticsGate`](src/components/AnalyticsGate.tsx)
+  pattern: check `useCookieConsent()` and render only when the relevant category
+  (`functional` or `marketing`) is `true`. Bump `CURRENT_VERSION` in
+  [cookie-consent-provider.tsx](src/components/providers/cookie-consent-provider.tsx) if the
+  category set changes — this invalidates stored consent and re-prompts users.
 
 ---
 
